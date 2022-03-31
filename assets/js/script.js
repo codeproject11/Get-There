@@ -1,4 +1,13 @@
-// store user input from form
+// variable to access main search form in js (to apply submit event listener to);
+var inputForm = document.querySelector('#search-form');
+
+var storeInput = function(event) {
+    event.preventDefault();
+    var input = document.querySelector("input[id='city']").value;
+    console.log(input);
+}
+
+inputForm.addEventListener("submit", storeInput);
 // store main div or section in variable to use in appending
 
 // fetch apis (multiple)

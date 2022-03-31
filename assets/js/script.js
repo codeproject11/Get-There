@@ -101,6 +101,9 @@ var weatherData = function (lat, lon, name) {
 //         })
 // }
 
+// function to find flights from the current city to the destination city
+
+
 
 
 // display functions (1 for flights, 1 for weather, 1 for hotels/restaurants)

@@ -1,5 +1,7 @@
-* {
+ * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
   }
 
 .header {
@@ -7,5 +9,5 @@
 }
 
 .form {
-    padding: 0 30px 15px 150px;
+    padding: 
 }

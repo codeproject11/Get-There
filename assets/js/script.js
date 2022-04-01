@@ -128,20 +128,7 @@ var getCity = function (destinationCity, currentCity) {
 // }
 
 // function to find flights from current city to destination city
-const options = {
-    method: 'GET',
-    headers: {
-        'X-RapidAPI-Host': 'skyscanner44.p.rapidapi.com',
-        'X-RapidAPI-Key': 'ac9801f2b6msha969dce2a1a2b53p1c5a9bjsn3bd2a7d8c6fd'
-    }
-};
 
-var flights = function () {
-    fetch('https://skyscanner44.p.rapidapi.com/search?adults=1&origin=MUC&destination=BER&departureDate=2022-06-28&currency=EUR', options)
-        .then(response => response.json())
-        .then(response => console.log(response))
-        .catch(err => console.error(err));
-}
 
 
 

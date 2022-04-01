@@ -125,50 +125,7 @@ var restaurants = function (lon, lat) {
             return
         });
 }
-// use destination id to grab hotel data
-var getHotels = function (destId) {
-    // update fetch url to include check in and checkout dates as user input variables when available --> note for taimur
-    fetch('https://hotels4.p.rapidapi.com/properties/list?destinationId=' + destId + '&pageNumber=1&pageSize=25&checkIn=2020-01-08&checkOut=2020-01-15&adults1=1&sortOrder=BEST_SELLER&locale=en_US&currency=CAD', options)
-        .then(function (response) {
-            if (response.ok) {
-                response.json()
-                    .then(function (data) {
-                        console.log(data.data.body)
-                        displayHotels(data.data.body.searchResults.results);
-                    })
-            } else {
-                // change to modal
-                alert("Enter a valid city name");
-            }
-        })
-        .catch(function (error) {
-            alert("Please Try Again");
-            console.log(error);
-            return
-        });
-}
 
-var displayHotels = function (hotels) {
-    mainArea.innerHTML = "";
-    for (var i = 0; i < 11; i++) {
-
-        hotelDivEl = document.createElement("div");
-        hotelHeadEl = document.createElement("h2");
-        hotelHeadEl.textContent = hotels[i].name;
-
-        hotelPriceEl = document.createElement("p");
-
-        if (hotels[i].ratePlan) {
-            hotelPriceEl.textContent = hotels[i].ratePlan.price.current;
-        } else {
-            hotelPriceEl.textContent = "There are no pricing details for this hotel."
-        }
-
-        hotelDivEl.appendChild(hotelHeadEl);
-        hotelDivEl.appendChild(hotelPriceEl);
-        mainArea.appendChild(hotelDivEl);
-    }
-};
 // add event listener to form
 inputForm.addEventListener("submit", storeInput);
 

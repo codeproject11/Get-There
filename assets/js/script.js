@@ -7,15 +7,14 @@ var hotelArea = document.querySelector('#hotel-area');
 // opentrip API = 5ae2e3f221c38a28845f05b69efdf761d15a073a57889029b8209b98
 
 // store user input and send into api functions
-
 var storeInput = function (event) {
     event.preventDefault();
     var destinationCity = document.querySelector("input[id='destination']").value;
     var currentCity = document.querySelector("input[id='currentCity']").value;
-    console.log(destinationCity + currentCity);
+   
     if (destinationCity && currentCity) {
-        destinationCity.value = "";
-        currentCity.value = "";
+        document.querySelector("input[id='destination']").value = '';
+        document.querySelector("input[id='currentCity']").value = "";
         getCity(destinationCity, currentCity);
         getCityId(destinationCity);
     } else {
@@ -24,9 +23,6 @@ var storeInput = function (event) {
 
 }
 
-// store main div or section in variable to use in appending
-
-// fetch apis (multiple)
 // function to use user inputted destination city and current city and generate data from API
 var getCity = function (destinationCity, currentCity) {
     var destinationCityAPIURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + destinationCity + "&limit=1&appid=f9dcdf6690d0d22c5198371e258e8bb2";
@@ -174,7 +170,7 @@ var getHotels = function (destId) {
                 response.json()
                     .then(function (data) {
                         console.log(data.data.body)
-                        // displayHotels(data.data.body.searchResults.results);
+                        displayHotels(data.data.body.searchResults.results);
                     })
             } else {
                 // change to modal

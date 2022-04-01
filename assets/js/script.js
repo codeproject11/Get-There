@@ -1,6 +1,6 @@
 // variable to access main search form in js (to apply submit event listener to);
-var inputForm = document.querySelector('#search-form');
-var mainArea = document.querySelector('#test');
+var inputButton = document.querySelector('#search');
+var hotelArea = document.querySelector('#hotel-area');
 
 // api details for hotel api
 var options = {
@@ -14,7 +14,7 @@ var options = {
 // store user input and send into api functions
 var storeInput = function(event) {
     event.preventDefault();
-    var input = document.querySelector("input[id='city']").value;
+    var input = document.querySelector("input[id='destination']").value;
     console.log(input);
     getCityId(input);
 }
@@ -61,7 +61,7 @@ var getHotels = function (destId) {
 }
 
 var displayHotels = function (hotels) {
-    mainArea.innerHTML = "";
+    hotelArea.innerHTML = "";
     for (var i = 0; i < 11; i++) {
         
         hotelDivEl = document.createElement("div");
@@ -78,9 +78,9 @@ var displayHotels = function (hotels) {
 
         hotelDivEl.appendChild(hotelHeadEl);
         hotelDivEl.appendChild(hotelPriceEl);
-        mainArea.appendChild(hotelDivEl);
+        hotelArea.appendChild(hotelDivEl);
     }
 };
 // add event listener to form
-inputForm.addEventListener("submit", storeInput);
+inputButton.addEventListener("click", storeInput);
 

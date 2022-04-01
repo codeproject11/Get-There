@@ -1,15 +1,213 @@
 // variable to access main search form in js (to apply submit event listener to);
-var inputForm = document.querySelector('#search-form');
+var inputButton = document.querySelector('#search');
+var hotelArea = document.querySelector('#hotel-area');
 
-var storeInput = function(event) {
+
+// openweather API = f9dcdf6690d0d22c5198371e258e8bb2
+// opentrip API = 5ae2e3f221c38a28845f05b69efdf761d15a073a57889029b8209b98
+
+// store user input and send into api functions
+var storeInput = function (event) {
     event.preventDefault();
-    var input = document.querySelector("input[id='city']").value;
-    console.log(input);
+    var destinationCity = document.querySelector("input[id='destination']").value;
+    var currentCity = document.querySelector("input[id='currentCity']").value;
+   
+    if (destinationCity && currentCity) {
+        document.querySelector("input[id='destination']").value = '';
+        document.querySelector("input[id='currentCity']").value = "";
+        getCity(destinationCity, currentCity);
+        getCityId(destinationCity);
+    } else {
+        alert("Please enter a city name")
+    }
+
 }
 
-inputForm.addEventListener("submit", storeInput);
-// store main div or section in variable to use in appending
+// function to use user inputted destination city and current city and generate data from API
+var getCity = function (destinationCity, currentCity) {
+    var destinationCityAPIURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + destinationCity + "&limit=1&appid=f9dcdf6690d0d22c5198371e258e8bb2";
+    var currenCityAPIURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + currentCity + "&limit=1&appid=f9dcdf6690d0d22c5198371e258e8bb2";
+    fetch(destinationCityAPIURL)
+        .then(function (res) {
+            if (res.ok) {
+                res.json().then(function (data) {
+                    if (data.length === 0) {
+                        alert("Please enter a valid city name")
+                    } else {
+                        weatherData(data[0].lat, data[0].lon, data[0].name)
+                        attractions(data[0].lon, data[0].lat)
+                        restaurants(data[0].lon, data[0].lat)
+                    };
+                });
+            };
+        })
+        .catch(function (error) {
+            alert("Please Try Again");
+            console.log(error);
+            return
+        });
+    fetch(currenCityAPIURL)
+        .then(function (res) {
+            if (res.ok) {
+                res.json().then(function (data) {
+                    if (data.length === 0) {
+                        alert("Please enter a valid city name")
+                    } else {
+                        console.log(`Current City: ${data[0].name}`)
+                        console.log(`Current City Coordinates: Lat- ${data[0].lat}, Lon- ${data[0].lon}`)
+                    };
+                });
+            };
+        })
+        .catch(function (error) {
+            alert("Please Try Again");
+            console.log(error);
+            return
+        });
+};
 
-// fetch apis (multiple)
+
+// API to get the lat and lon from getCity() and fetch data from an API to retrieve weather information for the destination city
+var weatherData = function (lat, lon, name) {
+    var apiURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=f9dcdf6690d0d22c5198371e258e8bb2";
+
+    fetch(apiURL)
+        .then(function (res) {
+            if (res.ok) {
+                res.json().then(function (data) {
+                    console.log(`Destination City: ${name}`)
+                    console.log(data)
+
+                });
+            };
+        })
+        .catch(function (error) {
+            alert("Please Try Again");
+            console.log(error);
+            return
+        });
+};
+
+
+// function to find attractions at destination city. returns 10 natural attractions within a 10k radius of the coordinates of the destination city inputted
+var attractions = function (lon, lat) {
+    var apiURL = "https://api.opentripmap.com/0.1/en/places/radius?radius=10000&lon=" + lon + "&lat=" + lat + "&kinds=natural&limit=10&apikey=5ae2e3f221c38a28845f05b69efdf761d15a073a57889029b8209b98"
+
+    fetch(apiURL)
+        .then(function (res) {
+            if (res.ok) {
+                res.json().then(function (data) {
+                    console.log(data)
+                })
+            }
+        })
+        .catch(function (error) {
+            alert("Please Try Again");
+            console.log(error);
+            return
+        });
+}
+
+// function to find restaurants within a 10 km radius of the destination city coordinates
+var restaurants = function (lon, lat) {
+    var apiURL = "https://api.opentripmap.com/0.1/en/places/radius?radius=10000&lon=" + lon + "&lat=" + lat + "&kinds=restaurants&limit=10&apikey=5ae2e3f221c38a28845f05b69efdf761d15a073a57889029b8209b98"
+
+    fetch(apiURL)
+        .then(function (res) {
+            if (res.ok) {
+                res.json().then(function (data) {
+                    console.log(data)
+                })
+            }
+        })
+        .catch(function (error) {
+            alert("Please Try Again");
+            console.log(error);
+            return
+        });
+}
+
+// api details for hotel api
+var options = {
+    method: 'GET',
+    headers: {
+        'X-RapidAPI-Host': 'hotels4.p.rapidapi.com',
+        'X-RapidAPI-Key': 'ac9801f2b6msha969dce2a1a2b53p1c5a9bjsn3bd2a7d8c6fd'
+    }
+};
+
+
+
+// uses api to get city destination id from user input and sends it to other hotels api
+var getCityId = function (input) {
+    fetch("https://hotels4.p.rapidapi.com/locations/search?query=" + input + "&locale=en_US", options)
+        .then(function (response) {
+            if (response.status === 200) {
+                response.json()
+                    .then(function (data) {
+                        if (data.moresuggestions !== 0) {
+                            var destId = data.suggestions[0].entities[0].destinationId;
+                            console.log(destId);
+                            getHotels(destId);
+                        } else {
+                            alert('Enter a valid city name');
+                        }
+                    })
+            } else {
+                // change to modal
+                alert("Enter a valid city name");
+            }
+        })
+        .catch(err => console.error(err));
+}
+
+// use destination id to grab hotel data
+var getHotels = function (destId) {
+    // update fetch url to include check in and checkout dates as user input variables when available --> note for taimur
+    fetch('https://hotels4.p.rapidapi.com/properties/list?destinationId=' + destId + '&pageNumber=1&pageSize=25&checkIn=2020-01-08&checkOut=2020-01-15&adults1=1&sortOrder=BEST_SELLER&locale=en_US&currency=CAD', options)
+        .then(function (response) {
+            if (response.ok) {
+                response.json()
+                    .then(function (data) {
+                        console.log(data.data.body)
+                        displayHotels(data.data.body.searchResults.results);
+                    })
+            } else {
+                // change to modal
+                alert("Enter a valid city name");
+            }
+        })
+}
+
+var displayHotels = function (hotels) {
+    hotelArea.innerHTML = "";
+    for (var i = 0; i < 11; i++) {
+        
+        hotelDivEl = document.createElement("div");
+        hotelHeadEl = document.createElement("h2");
+        hotelHeadEl.textContent = hotels[i].name;
+
+        hotelDivEl = document.createElement("div");
+        hotelHeadEl = document.createElement("h2");
+        hotelHeadEl.textContent = hotels[i].name;
+
+        hotelPriceEl = document.createElement("p");
+
+        if (hotels[i].ratePlan) {
+            hotelPriceEl.textContent = hotels[i].ratePlan.price.current;
+        } else {
+            hotelPriceEl.textContent = "There are no pricing details for this hotel."
+        }
+
+        hotelDivEl.appendChild(hotelHeadEl);
+        hotelDivEl.appendChild(hotelPriceEl);
+        hotelArea.appendChild(hotelDivEl);
+    }
+};
+// add event listener to form
+inputButton.addEventListener("click", storeInput);
+
+
+
 
 // display functions (1 for flights, 1 for weather, 1 for hotels/restaurants)

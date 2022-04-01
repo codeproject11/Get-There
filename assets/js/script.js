@@ -23,12 +23,21 @@ var storeInput = function(event) {
 var getCityId = function(input) {
     fetch("https://hotels4.p.rapidapi.com/locations/search?query=" + input + "&locale=en_US", options)
         .then(function(response) {
-            response.json()
-            .then(function(data) {
-                var destId = data.suggestions[0].entities[0].destinationId;
-                console.log(destId);
-                getHotels(destId);
-            })
+            if(response.status === 200) {
+                response.json()
+                .then(function(data) {
+                    if(data.moresuggestions !== 0) {
+                        var destId = data.suggestions[0].entities[0].destinationId;
+                        console.log(destId);
+                        getHotels(destId);
+                    } else {
+                        alert('Enter a valid city name');
+                    }
+                })
+            } else {
+                // change to modal
+                alert("Enter a valid city name");
+            }
         })
         .catch(err => console.error(err));
 }
@@ -38,28 +47,40 @@ var getHotels = function (destId) {
     // update fetch url to include check in and checkout dates as user input variables when available --> note for taimur
     fetch('https://hotels4.p.rapidapi.com/properties/list?destinationId=' + destId + '&pageNumber=1&pageSize=25&checkIn=2020-01-08&checkOut=2020-01-15&adults1=1&sortOrder=BEST_SELLER&locale=en_US&currency=CAD', options)
         .then(function(response) {
-            response.json()
-            .then(function(data) {
-                console.log(data.data.body)
-                displayHotels(data.data.body);
-            })
+            if(response.ok) {
+                response.json()
+                .then(function(data) {
+                    console.log(data.data.body)
+                    displayHotels(data.data.body.searchResults.results);
+                })
+            } else {
+                // change to modal
+                alert("Enter a valid city name");
+            }
         })
 }
 
-var displayHotels = function (body) {
+var displayHotels = function (hotels) {
     mainArea.innerHTML = "";
     for (var i = 0; i < 11; i++) {
+        
         hotelDivEl = document.createElement("div");
         hotelHeadEl = document.createElement("h2");
-        hotelHeadEl.textContent = body.searchResults.results[i].name;
+        hotelHeadEl.textContent = hotels[i].name;
+
+        hotelPriceEl = document.createElement("p");
+
+        if(hotels[i].ratePlan) {
+            hotelPriceEl.textContent = hotels[i].ratePlan.price.current;
+        } else {
+            hotelPriceEl.textContent = "There are no pricing details for this hotel."
+        }
 
         hotelDivEl.appendChild(hotelHeadEl);
+        hotelDivEl.appendChild(hotelPriceEl);
         mainArea.appendChild(hotelDivEl);
-    };
-    
-
-    
-}
+    }
+};
 // add event listener to form
 inputForm.addEventListener("submit", storeInput);
 

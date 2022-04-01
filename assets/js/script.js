@@ -19,7 +19,6 @@ var storeInput = function (event) {
 
 }
 
-inputForm.addEventListener("submit", storeInput);
 // store main div or section in variable to use in appending
 
 // fetch apis (multiple)

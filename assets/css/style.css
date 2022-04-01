@@ -6,8 +6,15 @@
 
 .header {
     padding-bottom: 40px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 9999;
 }
 
-.form {
+  .form {
     padding: 20px;
 }

@@ -1,5 +1,6 @@
 // variable to access main search form in js (to apply submit event listener to);
 var inputForm = document.querySelector('#search-form');
+var mainArea = document.querySelector('#test');
 
 // api details for hotel api
 var options = {
@@ -34,15 +35,31 @@ var getCityId = function(input) {
 
 // use destination id to grab hotel data
 var getHotels = function (destId) {
-    fetch('https://hotels4.p.rapidapi.com/properties/list?destinationId=' + destId + '&pageNumber=1&pageSize=25&checkIn=2020-01-08&checkOut=2020-01-15&adults1=1&sortOrder=PRICE&locale=en_US&currency=CAD', options)
+    // update fetch url to include check in and checkout dates as user input variables when available --> note for taimur
+    fetch('https://hotels4.p.rapidapi.com/properties/list?destinationId=' + destId + '&pageNumber=1&pageSize=25&checkIn=2020-01-08&checkOut=2020-01-15&adults1=1&sortOrder=BEST_SELLER&locale=en_US&currency=CAD', options)
         .then(function(response) {
             response.json()
             .then(function(data) {
-                console.log(data)
+                console.log(data.data.body)
+                displayHotels(data.data.body);
             })
         })
 }
 
+var displayHotels = function (body) {
+    mainArea.innerHTML = "";
+    for (var i = 0; i < 11; i++) {
+        hotelDivEl = document.createElement("div");
+        hotelHeadEl = document.createElement("h2");
+        hotelHeadEl.textContent = body.searchResults.results[i].name;
+
+        hotelDivEl.appendChild(hotelHeadEl);
+        mainArea.appendChild(hotelDivEl);
+    };
+    
+
+    
+}
 // add event listener to form
 inputForm.addEventListener("submit", storeInput);
 

@@ -183,43 +183,55 @@ var displayHotels = function (hotels) {
     hotelArea.innerHTML = "";
     for (var i = 0; i < 5; i++) {
         
-        hotelDivEl = document.createElement("div");
+        var hotelDivEl = document.createElement("div");
         hotelDivEl.classList = "column is-one-fifth-tablet is-half-mobile";
-        hotelHeadEl = document.createElement("h4");
+        var hotelHeadEl = document.createElement("h4");
         hotelHeadEl.textContent = hotels[i].name;
 
-        hotelPriceEl = document.createElement("p");
+        var hotelPriceEl = document.createElement("p");
 
         if (hotels[i].ratePlan) {
             hotelPriceEl.textContent = hotels[i].ratePlan.price.current;
         } else {
             hotelPriceEl.textContent = "There are no pricing details for this hotel."
         }
+        
+        // var hotelImgUrl = hotelImgCall.then(function(data) {
+        //     var check = data.hotelImages[0].baseUrl.replace("_{size}", "");
+        //     console.log(check);
+        // }) ;
 
-        var hotelImgEl = document.createElement("img");
-        var hotelImg = getHotelPhoto(hotels[i].id);
+        // console.log(hotelImgUrl);
+        // 
 
         hotelDivEl.appendChild(hotelHeadEl);
         hotelDivEl.appendChild(hotelPriceEl);
+
+        getHotelPhoto(hotels[i].id, hotelDivEl);
         hotelArea.appendChild(hotelDivEl);
     }
 };
 
 // get hotel photos
-var getHotelPhoto = function (id) {
-    console.log(id);
-    fetch('https://hotels4.p.rapidapi.com/properties/get-hotel-photos?id=' + id, options)
-	.then(function(response) {
-        response.json()
-        .then(function(data) {
-             // grab first image from api response
-
-            var hotelImg = data.hotelImages[0].baseUrl.replace("_{size}", "");
-            console.log(hotelImg);
-        }) 
-    })
-	.catch(err => console.error(err));
+var getHotelPhoto = function (id, selectedDiv) {
+        fetch('https://hotels4.p.rapidapi.com/properties/get-hotel-photos?id=' + id, options)
+        .then(function(response) {
+            response.json()
+            .then(function(data) {
+                hotelImgUrl = data.hotelImages[0].baseUrl.replace("_{size}", "")
+                displayHotel(hotelImgUrl, selectedDiv);
+            })
+        })
 }
+
+// display hotel photo to div 
+var displayHotel = function (hotelImgUrl, selectedDiv) {
+    var hotelImgEl = document.createElement("img");
+    hotelImgEl.setAttribute("src", hotelImgUrl);
+
+    selectedDiv.appendChild(hotelImgEl);
+}
+
 
 // add event listener to form
 inputButton.addEventListener("click", storeInput);

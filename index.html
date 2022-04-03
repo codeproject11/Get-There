@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Get There</title>
-        <!-- Bulma framework -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">            
-        <link rel="stylesheet" href="./assets/css/style.css">
-    </head>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get There</title>
+  <!-- Bulma framework -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <link rel="stylesheet" href="./assets/css/style.css">
+</head>
 
     <body>
     <section class="section">
@@ -73,46 +73,91 @@
                       <input class="input" type="text" placeholder="Text input" id="destination">
                     </div>
                   </div>
+<body>
+  <section class="section">
+    <header class="header columns">
+      <h1 class="title is-2">GET THERE</h1>
+      <img src="" alt="" class="column">
+      <nav>
+        <ul class="columns">
+          <li class="column">
+            <a href="#customer-support">Customer Support</a>
+          </li>
+          <li class="column">
+            <a href="#login-signup">Login/Signup</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <!-- HEADER WITH NAVIGATION -->
+    <!-- INPUT FORM WITH SUBMIT BUTTON -->
 
-                  <div>
-                    <div class="field">
-                        <label class="label">Depart</label>
-                        <div class="control">
-                          <input class="input" type="text" placeholder="Text input">
-                        </div>
-                      </div>
+    <!-- Hero Section & form -->
+    <section class="columns">
+      <form class="form is-half">
+        <div class="field has-addons">
+          <p class="control">
+            <button class="button">
+              <span class="icon is-small">
+                <i class="fas fa-align-left"></i>
+              </span>
+              <span>Round Trip</span>
+            </button>
+          </p>
+          <p class="control">
+            <button class="button">
+              <span class="icon is-small">
+                <i class="fas fa-align-center"></i>
+              </span>
+              <span>One-Way</span>
+            </button>
+          </p>
+          <p class="control">
+            <button class="button">
+              <span class="icon is-small">
+                <i class="fas fa-align-right"></i>
+              </span>
+              <span>Packages</span>
+            </button>
+          </p>
+        </div>
 
-                      <div class="field">
-                        <label class="label">Return</label>
-                        <div class="control">
-                          <input class="input" type="text" placeholder="Text input">
-                        </div>
-                      </div>
-                  </div>
+        <div class="field">
+          <label class="label">Departing Airport</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="YYZ" id="currentAirport">
+          </div>
+        </div>
 
-                  <div class="field">
-                    <label class="label">Passengers</label>
-                    <div class="control">
-                      <input class="input" type="text" placeholder="Text input">
-                    </div>
-                  </div>
+        <div class="field">
+          <label class="label">Arriving Airport</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="YVR" id="destinationAirport">
+          </div>
+        </div>
 
-                  <button class="button is-success" id="search">GET THERE!</button>
-            </form>
+        <div class="field">
+          <label class="label">Destination City</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Text input" id="destination">
+          </div>
+        </div>
 
-            <div class="is-half">
-                <h3>Hero Header</h3>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit illum, assumenda, quisquam quae, corporis nobis voluptates corrupti itaque quo dolores facilis. Officia itaque vero nisi similique. Vel inventore alias illum.</p>
+        <div>
+          <div class="field">
+            <label class="label">Depart</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="Text input">
             </div>
-        </section>
+          </div>
 
-        <!-- Popular Places Section-->
-        <section>
-            <!-- API for weather?-->
-            <div>
-                <h3 class="title is-3">Weather</h3>
-
+          <div class="field">
+            <label class="label">Return</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="Text input">
             </div>
+          </div>
+        </div>
 
             <!-- API for flights-->
             <div class="flights">
@@ -208,7 +253,127 @@
 
         <script src="./assets/js/script.js"></script>
         
+        <div class="field">
+          <label class="label">Passengers</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Text input">
+          </div>
+        </div>
+
+        <button class="button is-success" id="search">GET THERE!</button>
+      </form>
+
+      <div class="is-half">
+        <h3>Hero Header</h3>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit illum, assumenda, quisquam quae, corporis nobis
+          voluptates corrupti itaque quo dolores facilis. Officia itaque vero nisi similique. Vel inventore alias illum.
+        </p>
+      </div>
     </section>
-    </body>
+
+    <!-- Popular Places Section-->
+    <section>
+      <!-- API for weather?-->
+      <div>
+        <h3 class="title is-3">Weather</h3>
+
+      </div>
+
+      <!-- API for flights-->
+      <div>
+        <h3 class="title is-3">Flights</h3>
+        <div class="columns">
+          <div class="column" id="airline">Flight 1</div>
+          <div class="column" id="depart-date">5 April 2022</div>
+          <div class="column" id="class">Economy</div>
+          <div class="column" id="flight-hours">1.4</div>
+          <div class="column" id="price">$100</div>
+          <button class="button is-success" id="search">Select</button>
+        </div>
+
+        <div class="columns">
+          <div class="column" id="airline">Flight 2</div>
+          <div class="column" id="depart-date">5 April 2022</div>
+          <div class="column" id="class">Economy</div>
+          <div class="column" id="flight-hours">1.4</div>
+          <div class="column" id="price">$100</div>
+          <button class="button is-success" id="search">Select</button>
+        </div>
+
+        <div class="columns">
+          <div class="column" id="airline">Flight 3</div>
+          <div class="column" id="depart-date">5 April 2022</div>
+          <div class="column" id="class">Economy</div>
+          <div class="column" id="flight-hours">1.4</div>
+          <div class="column" id="price">$100</div>
+          <button class="button is-success" id="search">Select</button>
+        </div>
+
+        <div class="columns">
+          <div class="column" id="airline">Flight 4</div>
+          <div class="column" id="depart-date">5 April 2022</div>
+          <div class="column" id="class">Economy</div>
+          <div class="column" id="flight-hours">1.4</div>
+          <div class="column" id="price">$100</div>
+          <button class="button is-success" id="search">Select</button>
+        </div>
+
+        <div class="columns">
+          <div class="column" id="airline">Flight 5</div>
+          <div class="column" id="depart-date">5 April 2022</div>
+          <div class="column" id="class">Economy</div>
+          <div class="column" id="flight-hours">1.4</div>
+          <div class="column" id="price">$100</div>
+          <button class="button is-success" id="search">Select</button>
+        </div>
+      </div>
+
+      <!-- API for hotels?-->
+      <div>
+        <h3 class="title is-3">Hotels</h3>
+        <div id="hotel-area" class="columns is-mobile is-flex-wrap-wrap">
+
+        </div>
+      </div>
+
+      <!-- API for restaurants-->
+      <div>
+        <h3 class="title is-3">Restaurants</h3>
+      </div>
+    </section>
+    <!-- MAIN SECTION OR DIV THAT WILL LINK TO JS (GIVE A UNIQUE ID) -->
+
+    <!-- MAP -->
+    <section>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <img src="" alt="">
+
+      <div>
+        <div class="modal">
+          <div class="modal-background"></div>
+          <div class="modal-card">
+            <header class="modal-card-head">
+              <p class="modal-card-title">Modal title</p>
+              <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+              <!-- Content ... -->
+            </section>
+            <footer class="modal-card-foot">
+            </footer>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+
+    <script src="./assets/js/script.js"></script>
+
+  </section>
+</body>
 
 </html>

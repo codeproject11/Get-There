@@ -7,7 +7,7 @@ var options = {
     method: 'GET',
     headers: {
         'X-RapidAPI-Host': 'hotels4.p.rapidapi.com',
-        'X-RapidAPI-Key': 'ac9801f2b6msha969dce2a1a2b53p1c5a9bjsn3bd2a7d8c6fd'
+        'X-RapidAPI-Key': '4095781a70mshead3ea36f5198b9p145325jsn70b930dd6ab8'
     }
 };
 
@@ -18,13 +18,13 @@ var options = {
 var storeInput = function (event) {
     event.preventDefault();
     var destinationCity = document.querySelector("input[id='destination']").value;
-    var currentCity = document.querySelector("input[id='currentCity']").value;
+    var currentCity = document.querySelector("input[id='currentAirport']").value;
 
     inputButton.classList.add("is-loading");
    
     if (destinationCity && currentCity) {
         document.querySelector("input[id='destination']").value = '';
-        document.querySelector("input[id='currentCity']").value = "";
+        document.querySelector("input[id='currentAirport']").value = "";
         getCity(destinationCity, currentCity);
         getCityId(destinationCity);
     } else {

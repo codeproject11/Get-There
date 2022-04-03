@@ -2,6 +2,14 @@
 var inputButton = document.querySelector('#search');
 var hotelArea = document.querySelector('#hotel-area');
 
+// api details for hotel api
+var options = {
+    method: 'GET',
+    headers: {
+        'X-RapidAPI-Host': 'hotels4.p.rapidapi.com',
+        'X-RapidAPI-Key': 'ac9801f2b6msha969dce2a1a2b53p1c5a9bjsn3bd2a7d8c6fd'
+    }
+};
 
 // openweather API = f9dcdf6690d0d22c5198371e258e8bb2
 // opentrip API = 5ae2e3f221c38a28845f05b69efdf761d15a073a57889029b8209b98
@@ -11,6 +19,8 @@ var storeInput = function (event) {
     event.preventDefault();
     var destinationCity = document.querySelector("input[id='destination']").value;
     var currentCity = document.querySelector("input[id='currentCity']").value;
+
+    inputButton.classList.add("is-loading");
    
     if (destinationCity && currentCity) {
         document.querySelector("input[id='destination']").value = '';
@@ -19,6 +29,7 @@ var storeInput = function (event) {
         getCityId(destinationCity);
     } else {
         alert("Please enter a city name")
+        inputButton.classList.remove("is-loading");
     }
 
 }
@@ -43,6 +54,7 @@ var getCity = function (destinationCity, currentCity) {
         })
         .catch(function (error) {
             alert("Please Try Again");
+            inputButton.classList.remove("is-loading");
             console.log(error);
             return
         });
@@ -55,6 +67,7 @@ var getCity = function (destinationCity, currentCity) {
                     } else {
                         console.log(`Current City: ${data[0].name}`)
                         console.log(`Current City Coordinates: Lat- ${data[0].lat}, Lon- ${data[0].lon}`)
+                        inputButton.classList.remove("is-loading");
                     };
                 });
             };
@@ -127,15 +140,6 @@ var restaurants = function (lon, lat) {
         });
 }
 
-// api details for hotel api
-var options = {
-    method: 'GET',
-    headers: {
-        'X-RapidAPI-Host': 'hotels4.p.rapidapi.com',
-        'X-RapidAPI-Key': 'ac9801f2b6msha969dce2a1a2b53p1c5a9bjsn3bd2a7d8c6fd'
-    }
-};
-
 
 
 // uses api to get city destination id from user input and sends it to other hotels api
@@ -151,11 +155,13 @@ var getCityId = function (input) {
                             getHotels(destId);
                         } else {
                             alert('Enter a valid city name');
+                            inputButton.classList.remove("is-loading");
                         }
                     })
             } else {
                 // change to modal
                 alert("Enter a valid city name");
+                inputButton.classList.remove("is-loading");
             }
         })
         .catch(err => console.error(err));
@@ -175,6 +181,7 @@ var getHotels = function (destId) {
             } else {
                 // change to modal
                 alert("Enter a valid city name");
+                inputButton.classList.remove("is-loading");
             }
         })
 }
@@ -218,6 +225,7 @@ var displayHotels = function (hotels) {
         getHotelPhoto(hotels[i].id, hotelDivEl);
 
         hotelArea.appendChild(hotelDivEl);
+        inputButton.classList.remove("is-loading");
     }
 };
 
@@ -228,13 +236,13 @@ var getHotelPhoto = function (id, selectedDiv) {
             response.json()
             .then(function(data) {
                 hotelImgUrl = data.hotelImages[0].baseUrl.replace("_{size}", "")
-                displayHotel(hotelImgUrl, selectedDiv);
+                displayHotelPhoto(hotelImgUrl, selectedDiv);
             })
         })
 }
 
 // display hotel photo to div 
-var displayHotel = function (hotelImgUrl, selectedDiv) {
+var displayHotelPhoto = function (hotelImgUrl, selectedDiv) {
     var hotelImgEl = document.createElement("img");
     hotelImgEl.setAttribute("src", hotelImgUrl);
     hotelImgEl.className = "hotel-img";

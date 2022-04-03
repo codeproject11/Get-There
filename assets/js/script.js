@@ -181,13 +181,8 @@ var getHotels = function (destId) {
 
 var displayHotels = function (hotels) {
     hotelArea.innerHTML = "";
-    for (var i = 0; i < 11; i++) {
+    for (var i = 0; i < 5; i++) {
         
-        hotelDivEl = document.createElement("div");
-        hotelDivEl.classList = "column is-one-fifth-tablet is-half-mobile";
-        hotelHeadEl = document.createElement("h4");
-        hotelHeadEl.textContent = hotels[i].name;
-
         hotelDivEl = document.createElement("div");
         hotelDivEl.classList = "column is-one-fifth-tablet is-half-mobile";
         hotelHeadEl = document.createElement("h4");
@@ -201,15 +196,33 @@ var displayHotels = function (hotels) {
             hotelPriceEl.textContent = "There are no pricing details for this hotel."
         }
 
+        var hotelImgEl = document.createElement("img");
+        var hotelImg = getHotelPhoto(hotels[i].id);
+
         hotelDivEl.appendChild(hotelHeadEl);
         hotelDivEl.appendChild(hotelPriceEl);
         hotelArea.appendChild(hotelDivEl);
     }
 };
+
+// get hotel photos
+var getHotelPhoto = function (id) {
+    console.log(id);
+    fetch('https://hotels4.p.rapidapi.com/properties/get-hotel-photos?id=' + id, options)
+	.then(function(response) {
+        response.json()
+        .then(function(data) {
+             // grab first image from api response
+
+            var hotelImg = data.hotelImages[0].baseUrl.replace("_{size}", "");
+            console.log(hotelImg);
+        }) 
+    })
+	.catch(err => console.error(err));
+}
+
 // add event listener to form
 inputButton.addEventListener("click", storeInput);
-
-
 
 
 // display functions (1 for flights, 1 for weather, 1 for hotels/restaurants)

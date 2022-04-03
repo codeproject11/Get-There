@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Get There</title>
-        <!-- Bulma framework -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">            
-        <link rel="stylesheet" href="./assets/css/style.css">
-    </head>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get There</title>
+  <!-- Bulma framework -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <link rel="stylesheet" href="./assets/css/style.css">
+</head>
 
     <body>
     <section class="section">
         <header class="header columns">
+            <img class="logo" src="./assets/images/Bootcamp logo.png" alt="company logo paper airpline flying over global with company name, Get There, in the center" class="column">
             <h1 class="title is-2">GET THERE</h1>
-            <img src="" alt="" class="column">
             <nav>
                 <ul class="columns">
                     <li class="column">
@@ -59,16 +59,23 @@
                       </button>
                     </p>
                   </div>
-                  
+
                   <div class="field">
-                    <label class="label">From</label>
+                    <label class="label">Departing Airport</label>
                     <div class="control">
-                      <input class="input" type="text" placeholder="Text input" id="currentCity">
+                      <input class="input" type="text" placeholder="YYZ" id="currentAirport">
                     </div>
                   </div>
-                  
+
                   <div class="field">
-                    <label class="label">To</label>
+                    <label class="label">Arriving Airport</label>
+                    <div class="control">
+                      <input class="input" type="text" placeholder="YVR" id="destinationAirport">
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label class="label">Destination City</label>
                     <div class="control">
                       <input class="input" type="text" placeholder="Text input" id="destination">
                     </div>
@@ -76,18 +83,18 @@
 
                   <div>
                     <div class="field">
-                        <label class="label">Depart</label>
-                        <div class="control">
-                          <input class="input" type="text" placeholder="Text input">
-                        </div>
+                      <label class="label">Depart</label>
+                      <div class="control">
+                        <input class="input" type="text" placeholder="Text input">
                       </div>
+                    </div>
 
-                      <div class="field">
-                        <label class="label">Return</label>
-                        <div class="control">
-                          <input class="input" type="text" placeholder="Text input">
-                        </div>
+                    <div class="field">
+                      <label class="label">Return</label>
+                      <div class="control">
+                        <input class="input" type="text" placeholder="Text input">
                       </div>
+                    </div>
                   </div>
 
                   <div class="field">
@@ -98,72 +105,249 @@
                   </div>
 
                   <button class="button is-success" id="search">GET THERE!</button>
-            </form>
+              </form>
 
-            <div class="is-half">
+              <div class="is-half">
                 <h3>Hero Header</h3>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit illum, assumenda, quisquam quae, corporis nobis voluptates corrupti itaque quo dolores facilis. Officia itaque vero nisi similique. Vel inventore alias illum.</p>
-            </div>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit illum, assumenda, quisquam quae, corporis nobis
+                  voluptates corrupti itaque quo dolores facilis. Officia itaque vero nisi similique. Vel inventore alias illum.
+                </p>
+              </div>
         </section>
 
-        <!-- Popular Places Section-->
-        <section>
-            <!-- API for weather?-->
-            <div>
-                <h3 class="title is-3">Weather</h3>
-
-            </div>
-
-            <!-- API for flights-->
-            <div>
-                <h3 class="title is-3">Flights</h3>
-            </div>
-
-            <!-- API for hotels?-->
+          <!-- API for hotels?-->
             <div>
                 <h3 class="title is-3">Hotels</h3>
-                <div class="loader-wrapper"><p>ok</p></div>
                 <div id="hotel-area" class="columns is-mobile is-flex-wrap-wrap">
+                  <h4 class="title has-text-centered is-size-4">Top New York City Deals</h4>
+                  <div class="mt-5 columns is-centered is-8 is-variable">
+                    <div class="column is-4-tablet is-3-desktop">
+                      <div class="card">
+                        <div class="card-image has-text-centered px-6">
+                          <img class="hotel-img" src="./assets/images/times-square.jpeg" alt="Placeholder image">
+                        </div>
+                        <div class="card-content">
+                          <p class="title is-size-5">The Manhattan at Times Square</p>
+                          <p>4 Nights - CAD 205</p>
+                          <p>Highlights: Free wifi, breakfast included, indoor pool</p>
+                        </div>
+                        <footer class="card-footer">
+                          <p class="card-footer-item">
+                            <a href="" class="has-text-grey">View Detials</a>
+                          </p>
+                        </footer>
+                      </div>
+                    </div>
+                    <div class="column is-4-tablet is-3-desktop">
+                      <div class="card">
+                        <div class="card-image has-text-centered px-6">
+                          <img class="hotel-img" src="./assets/images/new-yorker.jpeg"alt="Placeholder image">
+                        </div>
+                        <div class="card-content">
+                          <p class="title is-size-5">The New Yorker, A Wyndham Hotel</p>
+                          <p>4 Nights - CAD 310</p>
+                          <p>Highlights: Free wifi, breakfast included, gym</p>
+                        </div>
+                        <footer class="card-footer">
+                          <p class="card-footer-item">
+                            <a href="" class="has-text-grey">View Details</a>
+                          </p>
+                        </footer>
+                      </div>
+                    </div>
+                    <div class="column is-4-tablet is-3-desktop">
+                      <div class="card">
+                        <div class="card-image has-text-centered px-6">
+                          <img class="hotel-img" src="./assets/images/the-pod.jpeg" alt="Placeholder image">
+                        </div>
+                        <div class="card-content">
+                          <p class="title is-size-5">Pod Times Square</p>
+                          <p>4 Nights - CAD 265</p>
+                          <p>Highlights: Free wifi, breakfast included, gym</p>
+                        </div>
+                        <footer class="card-footer">
+                          <p class="card-footer-item">
+                            <a href="" class="has-text-grey">View Details</a>
+                          </p>
+                        </footer>
+                      </div>
+                    </div>
+                  </div>
                 </div>
             </div>
 
             <!-- API for restaurants-->
             <div>
                 <h3 class="title is-3">Restaurants</h3>
+                <div id="restaurant-area" class="columns is-mobile is-flex-wrap-wrap">
+                  <div class="mt-5 columns is-centered is-8 is-variable">
+                    <div class="column is-4-tablet is-3-desktop">
+                      <div class="card">
+                        <div class="card-image has-text-centered px-6">
+                          <img class="hotel-img" src="" alt="Placeholder image">
+                        </div>
+                        <div class="card-content">
+                          <p class="title is-size-5">Restaurant Name 1</p>
+                        </div>
+                        <footer class="card-footer">
+                          <p class="card-footer-item">
+                            <a href="" class="has-text-grey">View Detials</a>
+                          </p>
+                        </footer>
+                      </div>
+                    </div>
+                    <div class="column is-4-tablet is-3-desktop">
+                      <div class="card">
+                        <div class="card-image has-text-centered px-6">
+                          <img class="hotel-img" src=""alt="Placeholder image">
+                        </div>
+                        <div class="card-content">
+                          <p class="title is-size-5">Restaurant Name 2</p>
+                        </div>
+                        <footer class="card-footer">
+                          <p class="card-footer-item">
+                            <a href="" class="has-text-grey">View Details</a>
+                          </p>
+                        </footer>
+                      </div>
+                    </div>
+                    <div class="column is-4-tablet is-3-desktop">
+                      <div class="card">
+                        <div class="card-image has-text-centered px-6">
+                          <img class="hotel-img" src="" alt="Placeholder image">
+                        </div>
+                        <div class="card-content">
+                          <p class="title is-size-5">Restaurant Name 3</p>
+                        </div>
+                        <footer class="card-footer">
+                          <p class="card-footer-item">
+                            <a href="" class="has-text-grey">View Details</a>
+                          </p>
+                        </footer>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
             </div>
-        </section>
         <!-- MAIN SECTION OR DIV THAT WILL LINK TO JS (GIVE A UNIQUE ID) -->
+        <!-- API for flights-->
+        <div class="flights">
+          <h3 class="title is-3">Flights</h3>
+          <div class="columns has-background-grey-dark flight-child">
+            <div class="column has-text-weight-bold" id="airline">Flight 1</div>
+            <div class="column" id="depart-date">5 April 2022</div>
+            <div class="column" id="class">Economy</div>
+            <div class="column" id="flight-hours">1.4 hours</div>
+            <div class="column" id="price">$100</div>
+            <button class="button is-success" id="search">Select</button>
+          </div>
+
+          <div class="columns has-background-grey-dark flight-child">
+            <div class="column has-text-weight-bold" id="airline">Flight 2</div>
+            <div class="column" id="depart-date">5 April 2022</div>
+            <div class="column" id="class">Economy</div>
+            <div class="column" id="flight-hours">1.4 hours</div>
+            <div class="column" id="price">$100</div>
+            <button class="button is-success" id="search">Select</button>
+          </div>
+
+          <div class="columns has-background-grey-dark flight-child">
+            <div class="column has-text-weight-bold" id="airline">Flight 3</div>
+            <div class="column" id="depart-date">5 April 2022</div>
+            <div class="column" id="class">Economy</div>
+            <div class="column" id="flight-hours">1.4 hours</div>
+            <div class="column" id="price">$100</div>
+            <button class="button is-success" id="search">Select</button>
+          </div>
+
+          <div class="columns has-background-grey-dark flight-child">
+            <div class="column has-text-weight-bold" id="airline">Flight 4</div>
+            <div class="column" id="depart-date">5 April 2022</div>
+            <div class="column" id="class">Economy</div>
+            <div class="column" id="flight-hours">1.4 hours</div>
+            <div class="column" id="price">$100</div>
+            <button class="button is-success" id="search">Select</button>
+          </div>
+
+          <div class="columns has-background-grey-dark flight-child">
+            <div class="column has-text-weight-bold" id="airline">Flight 5</div>
+            <div class="column" id="depart-date">5 April 2022</div>
+            <div class="column" id="class">Economy</div>
+            <div class="column" id="flight-hours">1.4 hours</div>
+            <div class="column" id="price">$100</div>
+            <button class="button is-success" id="search">Select</button>
+          </div>
+      </div>
     
         <!-- MAP -->
         <section>
         </section>
-        
-        <!-- FOOTER -->
-        <footer>
-            <img src="" alt="">
-
-            <div>
-                <div class="modal">
-                    <div class="modal-background"></div>
-                    <div class="modal-card">
-                      <header class="modal-card-head">
-                        <p class="modal-card-title">Modal title</p>
-                        <button class="delete" aria-label="close"></button>
-                      </header>
-                      <section class="modal-card-body">
-                        <!-- Content ... -->
-                      </section>
-                      <footer class="modal-card-foot">
-                      </footer>
-                    </div>
-                  </div>
-            </div>
-        </footer> 
-
-
-        <script src="./assets/js/script.js"></script>
-        
     </section>
-    </body>
+
+    <!-- Popular Places Section-->
+    <section>
+      <!-- API for weather?-->
+      <div>
+        <h3 class="title is-3">Weather</h3>
+
+      </div>
+    </section>
+    <!-- MAIN SECTION OR DIV THAT WILL LINK TO JS (GIVE A UNIQUE ID) -->
+
+    <!-- MAP -->
+    <section>
+
+    </section>
+
+<!-- FOOTER -->
+<footer>
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered is-mobile is-multiline">
+        <div class="column is-half-mobile us-one-quarter-desktop">
+          <h5 class="title is-5">Quick Links</h5>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#deals">Search Flights</a></li>
+            <li><a href="#map">Interactive Map</a></li>
+          </ul>
+        </div>
+        <div class="column is-half-mobile us-one-quarter-desktop">
+          <h5 class="title is-5">Information</h5>
+          <ul>
+            <li><a href="index.html">Contact Us</a></li>
+            <li><a href="index.html">Legal</a></li>
+          </ul>
+        </div>
+        <div class="column is-half-mobile us-one-quarter-desktop">
+          <h5 class="title is-5">Follow Us</h5>
+          <ul>
+            <li><a href="index.html"><i class="fab fa-fw fa-facebook"></i> Facebook</a></li>
+            <li><a href="index.html"><i class="fab fa-fw fa-youtube"></i> Youtube</a></li>
+          </ul>
+        </div>
+        <div class="column is-half-mobile us-one-quarter-desktop">
+          <h5 class="title is-5">Our Location</h5>
+          <address>
+            <strong>Get There</strong><br>
+            123 Front St. <br>
+            Toronto, On Canada <br>
+            <i class="fas fa-fw fa-phone"></i><a href="tel:+1234567890">(123) 456-7890</a><br>
+            <i class="fas fa-fw fa-envelope"></i><a href="mailto:info@gmail.com">info@gmail.com</a><br>
+
+          </address>
+        </div>
+      </div>
+    </div>
+  </footer>
+</footer>
+
+
+    <script src="./assets/js/script.js"></script>
+
+  </section>
+</body>
 
 </html>

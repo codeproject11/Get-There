@@ -230,7 +230,7 @@ var storeInput = function (event) {
 //                     console.log(data.results[0].flight_name)
 //                     console.log(data)
 //                     console.log(data.results[0].totals.total)
-//                     console.log("********************************")
+
 //                 }
 //             })
 //         }

@@ -184,11 +184,13 @@ var displayHotels = function (hotels) {
     for (var i = 0; i < 11; i++) {
         
         hotelDivEl = document.createElement("div");
-        hotelHeadEl = document.createElement("h2");
+        hotelDivEl.classList = "column is-one-fifth-tablet is-half-mobile";
+        hotelHeadEl = document.createElement("h4");
         hotelHeadEl.textContent = hotels[i].name;
 
         hotelDivEl = document.createElement("div");
-        hotelHeadEl = document.createElement("h2");
+        hotelDivEl.classList = "column is-one-fifth-tablet is-half-mobile";
+        hotelHeadEl = document.createElement("h4");
         hotelHeadEl.textContent = hotels[i].name;
 
         hotelPriceEl = document.createElement("p");

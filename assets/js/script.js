@@ -195,19 +195,28 @@ var displayHotels = function (hotels) {
         } else {
             hotelPriceEl.textContent = "There are no pricing details for this hotel."
         }
+
+        var hotelInfoArr = [
+            "Address: " + hotels[i].address.streetAddress,
+            "Star Rating: " + hotels[i].starRating,
+            "Neighbourhood: " + hotels[i].neighbourhood
+        ]
+
+        var hotelInfoEl = document.createElement("ul");
         
-        // var hotelImgUrl = hotelImgCall.then(function(data) {
-        //     var check = data.hotelImages[0].baseUrl.replace("_{size}", "");
-        //     console.log(check);
-        // }) ;
-
-        // console.log(hotelImgUrl);
-        // 
-
+        for (var x = 0; x < hotelInfoArr.length; x++) {
+            var hotelInfoListEl = document.createElement("li");
+            hotelInfoListEl.textContent = hotelInfoArr[x];
+            hotelInfoEl.appendChild(hotelInfoListEl);
+        }
+        
         hotelDivEl.appendChild(hotelHeadEl);
         hotelDivEl.appendChild(hotelPriceEl);
+        hotelDivEl.appendChild(hotelInfoEl);
 
+        // use another API to get hotel first hotel photo available
         getHotelPhoto(hotels[i].id, hotelDivEl);
+
         hotelArea.appendChild(hotelDivEl);
     }
 };
@@ -228,6 +237,7 @@ var getHotelPhoto = function (id, selectedDiv) {
 var displayHotel = function (hotelImgUrl, selectedDiv) {
     var hotelImgEl = document.createElement("img");
     hotelImgEl.setAttribute("src", hotelImgUrl);
+    hotelImgEl.className = "hotel-img";
 
     selectedDiv.appendChild(hotelImgEl);
 }

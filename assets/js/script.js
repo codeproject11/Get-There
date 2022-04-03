@@ -1,6 +1,7 @@
 // variable to access main search form in js (to apply submit event listener to);
 var inputButton = document.querySelector('#search');
 var hotelArea = document.querySelector('#hotel-area');
+var flightArea = document.querySelector(".flightSection")
 
 
 // openweather API = f9dcdf6690d0d22c5198371e258e8bb2
@@ -250,20 +251,12 @@ const flightFunctionInfo = {
     }
 };
 var flights = function (currentAirport, destinationAirport) {
-    console.log(currentAirport)
-    console.log(destinationAirport)
     fetch("https://flight-fare-search.p.rapidapi.com/v2/flight/?from=" + currentAirport + "&to=" + destinationAirport + "&date=2022-04-04&adult=1&type=economy&currency=USD", flightFunctionInfo)
         .then(function (res) {
             if (res.ok) {
                 res.json().then(function (data) {
-                    for (let i = 0; i < 4; i++) {
-                        // console.log(data.results[i].flight_name);
-                        // console.log(data.results[i].departureAirport.time.substr(0, 10));
-                        // console.log(data.results[i].cabinType);
-                        // console.log(data.results[i].duration.text);
-                        // console.log("$" + data.results[i].totals.total + "/Person");
-                        flightDisplay(data.results[i])
-                    }
+                    flightDisplay(data)
+
                 })
             }
         })
@@ -274,56 +267,59 @@ var flights = function (currentAirport, destinationAirport) {
 
 // function to display the flight data
 var flightDisplay = function (data) {
-    var flightSectionEl = document.querySelector(".flightSection")
-    var columnEl = document.createElement("div")
-    columnEl.setAttribute("class", "columns")
+    flightArea.innerHTML = ""
+    for (let i = 0; i < 5; i++) {
+        var columnEl = document.createElement("div")
+        columnEl.setAttribute("class", "columns")
 
-    // dynamically creating the flight name div
-    var flightNameEl = document.createElement("div")
-    flightNameEl.setAttribute("class", "column")
-    flightNameEl.setAttribute("id", "airline")
-    flightNameEl.innerHTML = data.flight_name
+        // dynamically creating the flight name div
+        var flightNameEl = document.createElement("div")
+        flightNameEl.setAttribute("class", "column")
+        flightNameEl.setAttribute("id", "airline")
+        flightNameEl.innerHTML = data.results[i].flight_name
 
-    // dynamically creating the departing date div
-    var departingDateEl = document.createElement("div")
-    departingDateEl.setAttribute("class", "column")
-    departingDateEl.setAttribute("id", "depart-date")
-    departingDateEl.innerHTML = data.departureAirport.time.substr(0, 10)
+        // dynamically creating the departing date div
+        var departingDateEl = document.createElement("div")
+        departingDateEl.setAttribute("class", "column")
+        departingDateEl.setAttribute("id", "depart-date")
+        departingDateEl.innerHTML = data.results[i].departureAirport.time.substr(0, 10)
 
-    // dynamically creating the flight class div
-    var flightClassEl = document.createElement("div")
-    flightClassEl.setAttribute("class", "column")
-    flightClassEl.setAttribute("id", "class")
-    flightClassEl.innerHTML = data.cabinType
+        // dynamically creating the flight class div
+        var flightClassEl = document.createElement("div")
+        flightClassEl.setAttribute("class", "column")
+        flightClassEl.setAttribute("id", "class")
+        flightClassEl.innerHTML = data.results[i].cabinType
 
-    // dynamically creating the flight duration div
-    var flightDurationEl = document.createElement("div")
-    flightDurationEl.setAttribute("class", "column")
-    flightDurationEl.setAttribute("id", "flight-hours")
-    flightDurationEl.innerHTML = data.duration.text
+        // dynamically creating the flight duration div
+        var flightDurationEl = document.createElement("div")
+        flightDurationEl.setAttribute("class", "column")
+        flightDurationEl.setAttribute("id", "flight-hours")
+        flightDurationEl.innerHTML = data.results[i].duration.text
 
-    // dynamically creating the flight price div
-    var flightPriceEl = document.createElement("div")
-    flightPriceEl.setAttribute("class", "column")
-    flightPriceEl.setAttribute("id", "price")
-    flightPriceEl.innerHTML = "$" + data.totals.total + "/Person"
+        // dynamically creating the flight price div
+        var flightPriceEl = document.createElement("div")
+        flightPriceEl.setAttribute("class", "column")
+        flightPriceEl.setAttribute("id", "price")
+        flightPriceEl.innerHTML = "$" + Math.floor(data.results[i].totals.total) + "/Person"
 
-    // dynamically creating the flight select button
-    var selectButtonEl = document.createElement("button")
-    selectButtonEl.setAttribute("class", "button is-success")
-    selectButtonEl.setAttribute("id", "search")
-    selectButtonEl.innerHTML = "Select"
+        // dynamically creating the flight select button
+        var selectButtonEl = document.createElement("button")
+        selectButtonEl.setAttribute("class", "button is-success")
+        selectButtonEl.setAttribute("id", "search")
+        selectButtonEl.innerHTML = "Select"
 
-    // Append the flight information onto the page
-    columnEl.appendChild(flightNameEl)
-    columnEl.appendChild(departingDateEl)
-    columnEl.appendChild(flightClassEl)
-    columnEl.appendChild(flightDurationEl)
-    columnEl.appendChild(flightPriceEl)
-    columnEl.appendChild(selectButtonEl)
+        // Append the flight information onto the page
+        columnEl.appendChild(flightNameEl)
+        columnEl.appendChild(departingDateEl)
+        columnEl.appendChild(flightClassEl)
+        columnEl.appendChild(flightDurationEl)
+        columnEl.appendChild(flightPriceEl)
+        columnEl.appendChild(selectButtonEl)
 
-    flightSectionEl.appendChild(columnEl)
+        flightArea.appendChild(columnEl)
+    }
 }
+
 
 // add event listener to form
 inputButton.addEventListener("click", storeInput);

@@ -1,29 +1,30 @@
- * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 .header {
-    padding: 10px 0;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    z-index: 9999;
-    background-color: white;
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  background-color: white;
 }
 
-  .form {
-    padding: 20px;
+.form {
+  padding: 20px;
 }
 
-.hotel-img{
-  height: 200px;;
+.hotel-img {
+  height: 200px;
+  ;
   width: 400px;
-  
+
 }
 
 .flight-child {

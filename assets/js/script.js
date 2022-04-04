@@ -197,7 +197,7 @@ var displayHotels = function (hotels) {
     for (var i = 0; i < 5; i++) {
         // create main div element for card
         var hotelMasterDivEl = document.createElement("div");
-        hotelMasterDivEl.classList = "column is-4-tablet is-3-desktop"; 
+        hotelMasterDivEl.classList = "column is-4-tablet is-3-desktop is-flex-wrap-wrap"; 
 
         // create card div
         var hotelDivEl = document.createElement("div");

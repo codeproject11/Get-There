@@ -33,78 +33,79 @@
 
     <!-- Hero Section & form -->
     <section class="columns my-3 py-4">
-      <form class="form is-half">
-        <div class="field has-addons">
-          <p class="control">
-            <button class="button">
-              <span class="icon is-small">
-                <i class="fas fa-align-left"></i>
-              </span>
-              <span>Round Trip</span>
-            </button>
-          </p>
-          <p class="control">
-            <button class="button">
-              <span class="icon is-small">
-                <i class="fas fa-align-center"></i>
-              </span>
-              <span>One-Way</span>
-            </button>
-          </p>
-          <p class="control">
-            <button class="button">
-              <span class="icon is-small">
-                <i class="fas fa-align-right"></i>
-              </span>
-              <span>Packages</span>
-            </button>
-          </p>
-        </div>
-
-        <div class="field">
-          <label class="label">Departing Airport</label>
-          <div class="control">
-            <input class="input" type="text" placeholder="YYZ" id="currentAirport">
+      <div class="column is-half">
+        <form class="form">
+          <div class="field has-addons">
+            <p class="control">
+              <button class="button">
+                <span class="icon is-small">
+                  <i class="fas fa-align-left"></i>
+                </span>
+                <span>Round Trip</span>
+              </button>
+            </p>
+            <p class="control">
+              <button class="button">
+                <span class="icon is-small">
+                  <i class="fas fa-align-center"></i>
+                </span>
+                <span>One-Way</span>
+              </button>
+            </p>
+            <p class="control">
+              <button class="button">
+                <span class="icon is-small">
+                  <i class="fas fa-align-right"></i>
+                </span>
+                <span>Packages</span>
+              </button>
+            </p>
           </div>
-        </div>
 
-        <div class="field">
-          <label class="label">Arriving Airport</label>
-          <div class="control">
-            <input class="input" type="text" placeholder="YVR" id="destinationAirport">
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="label">Destination City</label>
-          <div class="control">
-            <input class="input" type="text" placeholder="Text input" id="destination">
-          </div>
-        </div>
-
-        <div>
           <div class="field">
-            <label class="label">Departing Date</label>
+            <label class="label">Departing Airport</label>
             <div class="control">
-              <input class="input" type="text" placeholder="Text input">
+              <input class="input" type="text" placeholder="YYZ" id="currentAirport">
             </div>
           </div>
-        </div>
 
-        <div class="field">
-          <label class="label">Passengers</label>
-          <div class="control">
-            <input class="input" type="text" placeholder="Text input" id="passengerInput">
+          <div class="field">
+            <label class="label">Arriving Airport</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="YVR" id="destinationAirport">
+            </div>
           </div>
-        </div>
 
-        <button class="button is-success" id="search">GET THERE!</button>
-      </form>
+          <div class="field">
+            <label class="label">Destination City</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="Text input" id="destination">
+            </div>
+          </div>
 
-      <div class="is-half">
-        <h3>Hero Header</h3>
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit illum, assumenda, quisquam quae, corporis nobis
-          voluptates corrupti itaque quo dolores facilis. Officia itaque vero nisi similique. Vel inventore alias illum.
+          <div>
+            <div class="field">
+              <label class="label">Departing Date</label>
+              <div class="control">
+                <input class="input" type="text" placeholder="Text input">
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Passengers</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="Text input" id="passengerInput">
+            </div>
+          </div>
+
+          <button class="button is-success" id="search">GET THERE!</button>
+        </form>
+      </div>
+
+      <div class="column is-half">
+        <h3 class="title is-3 has-text-centered">We Get You There</h3>
+        <p class="px-5">We want to help your travel experience light and easy. You can think of us as your one stop shop for all of your travel essentials! Simply fill out our intuitive form and we well send you on your way!
         </p>
       </div>
     </section>
@@ -298,7 +299,7 @@
           <!-- image of city goes here-->
           <img src="" alt="placeholder">
         </div>
-        <div class="column is-one-third">
+        <div class="column is-two-thirds weather-icons">
           <h3 class="title is-3 has-text-centered weatherCityName">City Name</h3>
           <div class="columns" id="weather-display">
             <div class="column">

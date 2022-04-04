@@ -118,9 +118,9 @@
           <!-- API for hotels?-->
               <div class="my-3 py-4">
                 <h3 class="title is-3">Hotels</h3>
-                <div id="hotel-area" class="columns is-mobile is-flex-wrap-wrap">
-                  <h4 class="title has-text-centered is-size-4">Top New York City Deals</h4>
-                  <div class="mt-5 columns is-centered is-8 is-variable">
+                <div class="columns is-mobile is-flex-wrap-wrap" id="hotel-container">
+                  <h4 class="title has-text-centered is-size-4" id="hotel-header">Top New York City Deals</h4>
+                  <div class="mt-5 columns is-centered is-variable is-flex-wrap-wrap" id="hotel-area">
                     <div class="column is-4-tablet is-3-desktop">
                       <div class="card">
                         <div class="card-image has-text-centered px-6">
@@ -133,7 +133,7 @@
                         </div>
                         <footer class="card-footer">
                           <p class="card-footer-item">
-                            <a href="" class="has-text-grey">View Detials</a>
+                            <a href="" class="has-text-grey">View Details</a>
                           </p>
                         </footer>
                       </div>
@@ -172,6 +172,23 @@
                         </footer>
                       </div>
                     </div>
+                    <div class="column is-4-tablet is-3-desktop">
+                        <div class="card">
+                          <div class="card-image has-text-centered px-6">
+                            <img class="hotel-img" src="./assets/images/the-pod.jpeg" alt="Placeholder image">
+                          </div>
+                          <div class="card-content">
+                            <p class="title is-size-5">Pod Times Square</p>
+                            <p>4 Nights - CAD 265</p>
+                            <p>Highlights: Free wifi, breakfast included, gym</p>
+                          </div>
+                          <footer class="card-footer">
+                            <p class="card-footer-item">
+                              <a href="" class="has-text-grey">View Details</a>
+                            </p>
+                          </footer>
+                        </div>
+                      </div>
                   </div>
                 </div>
               </div>
@@ -327,7 +344,6 @@
     
         <!-- MAP -->
         <section>
-
         </section>
     </section>
 

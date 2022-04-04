@@ -1,7 +1,16 @@
 // variable to access main search form in js (to apply submit event listener to);
 var inputButton = document.querySelector('#search');
 var hotelArea = document.querySelector('#hotel-area');
+var hotelHeader = document.querySelector('#hotel-header')
 
+// api details for hotel api
+var options = {
+    method: 'GET',
+    headers: {
+        'X-RapidAPI-Host': 'hotels4.p.rapidapi.com',
+        'X-RapidAPI-Key': '4095781a70mshead3ea36f5198b9p145325jsn70b930dd6ab8'
+    }
+};
 
 // openweather API = f9dcdf6690d0d22c5198371e258e8bb2
 // opentrip API = 5ae2e3f221c38a28845f05b69efdf761d15a073a57889029b8209b98
@@ -10,15 +19,18 @@ var hotelArea = document.querySelector('#hotel-area');
 var storeInput = function (event) {
     event.preventDefault();
     var destinationCity = document.querySelector("input[id='destination']").value;
-    var currentCity = document.querySelector("input[id='currentCity']").value;
+    var currentCity = document.querySelector("input[id='currentAirport']").value;
+
+    inputButton.classList.add("is-loading");
    
     if (destinationCity && currentCity) {
         document.querySelector("input[id='destination']").value = '';
-        document.querySelector("input[id='currentCity']").value = "";
+        document.querySelector("input[id='currentAirport']").value = "";
         getCity(destinationCity, currentCity);
         getCityId(destinationCity);
     } else {
         alert("Please enter a city name")
+        inputButton.classList.remove("is-loading");
     }
 
 }
@@ -43,6 +55,7 @@ var getCity = function (destinationCity, currentCity) {
         })
         .catch(function (error) {
             alert("Please Try Again");
+            inputButton.classList.remove("is-loading");
             console.log(error);
             return
         });
@@ -55,6 +68,7 @@ var getCity = function (destinationCity, currentCity) {
                     } else {
                         console.log(`Current City: ${data[0].name}`)
                         console.log(`Current City Coordinates: Lat- ${data[0].lat}, Lon- ${data[0].lon}`)
+                        inputButton.classList.remove("is-loading");
                     };
                 });
             };
@@ -127,15 +141,6 @@ var restaurants = function (lon, lat) {
         });
 }
 
-// api details for hotel api
-var options = {
-    method: 'GET',
-    headers: {
-        'X-RapidAPI-Host': 'hotels4.p.rapidapi.com',
-        'X-RapidAPI-Key': 'ac9801f2b6msha969dce2a1a2b53p1c5a9bjsn3bd2a7d8c6fd'
-    }
-};
-
 
 
 // uses api to get city destination id from user input and sends it to other hotels api
@@ -151,11 +156,13 @@ var getCityId = function (input) {
                             getHotels(destId);
                         } else {
                             alert('Enter a valid city name');
+                            inputButton.classList.remove("is-loading");
                         }
                     })
             } else {
                 // change to modal
                 alert("Enter a valid city name");
+                inputButton.classList.remove("is-loading");
             }
         })
         .catch(err => console.error(err));
@@ -175,41 +182,112 @@ var getHotels = function (destId) {
             } else {
                 // change to modal
                 alert("Enter a valid city name");
+                inputButton.classList.remove("is-loading");
             }
         })
 }
 
 var displayHotels = function (hotels) {
+    // add "top {city} deals" header to hotel area
+    hotelHeader.textContent = "Top " + hotels[0].address.locality + " City Deals";
+  
+    // clear up main area of hotel display
     hotelArea.innerHTML = "";
-    for (var i = 0; i < 11; i++) {
+
+    for (var i = 0; i < 4; i++) {
+        // create main div element for card
+        var hotelMasterDivEl = document.createElement("div");
+        hotelMasterDivEl.classList = "column is-4-tablet is-3-desktop is-flex-wrap-wrap"; 
+
+        // create card div
+        var hotelDivEl = document.createElement("div");
+        hotelDivEl.classList = "card";
         
-        hotelDivEl = document.createElement("div");
-        hotelDivEl.classList = "column is-one-fifth-tablet is-half-mobile";
-        hotelHeadEl = document.createElement("h4");
+        // create image div and add children
+        var hotelImgDivEl = document.createElement("div");
+        hotelImgDivEl.className = "card-image has-text-centered px-6";
+        getHotelPhoto(hotels[i].id, hotelImgDivEl);
+
+
+        // create div for hotel name and price
+        var hotelInfoDivEl = document.createElement("div");
+        hotelInfoDivEl.className = "card-content";
+
+        var hotelHeadEl = document.createElement("p");
+        hotelHeadEl.className = "title is-size-5";
         hotelHeadEl.textContent = hotels[i].name;
 
-        hotelDivEl = document.createElement("div");
-        hotelDivEl.classList = "column is-one-fifth-tablet is-half-mobile";
-        hotelHeadEl = document.createElement("h4");
-        hotelHeadEl.textContent = hotels[i].name;
-
-        hotelPriceEl = document.createElement("p");
-
+        var hotelPriceEl = document.createElement("p");
         if (hotels[i].ratePlan) {
             hotelPriceEl.textContent = hotels[i].ratePlan.price.current;
         } else {
-            hotelPriceEl.textContent = "There are no pricing details for this hotel."
+            hotelPriceEl.textContent = "Pricing Unavailable"
         }
 
-        hotelDivEl.appendChild(hotelHeadEl);
-        hotelDivEl.appendChild(hotelPriceEl);
-        hotelArea.appendChild(hotelDivEl);
+        hotelInfoDivEl.appendChild(hotelHeadEl);
+        hotelInfoDivEl.appendChild(hotelPriceEl);
+
+        // create footer for card
+        var hotelFooterEl = document.createElement("div");
+        hotelFooterEl.className = "card-footer";
+        hotelFooterEl.innerHTML = '<p class="card-footer-item"><a href="" class="has-text-grey">View Details</a></p>';
+
+        
+
+        // var hotelInfoArr = [
+        //     "Address: " + hotels[i].address.streetAddress,
+        //     "Star Rating: " + hotels[i].starRating,
+        //     "Neighbourhood: " + hotels[i].neighbourhood
+        // ]
+
+        // var hotelInfoEl = document.createElement("ul");
+        
+        // for (var x = 0; x < hotelInfoArr.length; x++) {
+        //     var hotelInfoListEl = document.createElement("li");
+        //     hotelInfoListEl.textContent = hotelInfoArr[x];
+        //     hotelInfoEl.appendChild(hotelInfoListEl);
+        // }
+        
+        // append to card
+        hotelDivEl.appendChild(hotelImgDivEl);
+        hotelDivEl.appendChild(hotelInfoDivEl);
+        hotelDivEl.appendChild(hotelFooterEl);
+        // hotelDivEl.appendChild(hotelInfoEl);
+
+        // append to master div
+        hotelMasterDivEl.appendChild(hotelDivEl);
+
+        // append master div to hotel section
+        hotelArea.appendChild(hotelMasterDivEl);
+
+        inputButton.classList.remove("is-loading");
     }
 };
+
+// get hotel photos
+var getHotelPhoto = function (id, selectedDiv) {
+        fetch('https://hotels4.p.rapidapi.com/properties/get-hotel-photos?id=' + id, options)
+        .then(function(response) {
+            response.json()
+            .then(function(data) {
+                hotelImgUrl = data.hotelImages[0].baseUrl.replace("_{size}", "")
+                displayHotelPhoto(hotelImgUrl, selectedDiv);
+            })
+        })
+}
+
+// display hotel photo to div 
+var displayHotelPhoto = function (hotelImgUrl, selectedDiv) {
+    var hotelImgEl = document.createElement("img");
+    hotelImgEl.setAttribute("src", hotelImgUrl);
+    hotelImgEl.className = "hotel-img";
+
+    selectedDiv.appendChild(hotelImgEl);
+}
+
+
 // add event listener to form
 inputButton.addEventListener("click", storeInput);
-
-
 
 
 // display functions (1 for flights, 1 for weather, 1 for hotels/restaurants)

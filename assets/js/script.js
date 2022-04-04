@@ -1,6 +1,7 @@
 // variable to access main search form in js (to apply submit event listener to);
 var inputButton = document.querySelector('#search');
 var hotelArea = document.querySelector('#hotel-area');
+var hotelHeader = document.querySelector('#hotel-header')
 
 // api details for hotel api
 var options = {
@@ -187,44 +188,70 @@ var getHotels = function (destId) {
 }
 
 var displayHotels = function (hotels) {
+    // add "top {city} deals" header to hotel area
+    hotelHeader.textContent = "Top " + hotels[0].address.locality + " City Deals";
+  
+    // clear up main area of hotel display
     hotelArea.innerHTML = "";
+
     for (var i = 0; i < 5; i++) {
-        
+        // create main div element for card
+        var hotelMasterDivEl = document.createElement("div");
+        hotelMasterDivEl.classList = "column is-4-tablet is-3-desktop"; 
+
+        // create card div
         var hotelDivEl = document.createElement("div");
-        hotelDivEl.classList = "column is-one-fifth-tablet is-half-mobile";
-        var hotelHeadEl = document.createElement("h4");
+        hotelDivEl.classList = "card";
+        
+        // create image div and add children
+        var hotelImgDivEl = document.createElement("div");
+        hotelImgDivEl.className = "card-image has-text-centered px-6";
+        getHotelPhoto(hotels[i].id, hotelImgDivEl);
+
+
+        // create div for hotel name and price
+        var hotelInfoDivEl = document.createElement("div");
+        hotelInfoDivEl.className = "card-content";
+
+        var hotelHeadEl = document.createElement("p");
+        hotelHeadEl.className = "title is-size-5";
         hotelHeadEl.textContent = hotels[i].name;
 
         var hotelPriceEl = document.createElement("p");
-
         if (hotels[i].ratePlan) {
             hotelPriceEl.textContent = hotels[i].ratePlan.price.current;
         } else {
             hotelPriceEl.textContent = "There are no pricing details for this hotel."
         }
 
-        var hotelInfoArr = [
-            "Address: " + hotels[i].address.streetAddress,
-            "Star Rating: " + hotels[i].starRating,
-            "Neighbourhood: " + hotels[i].neighbourhood
-        ]
+        hotelInfoDivEl.appendChild(hotelHeadEl);
+        hotelInfoDivEl.appendChild(hotelPriceEl);
 
-        var hotelInfoEl = document.createElement("ul");
+        // var hotelInfoArr = [
+        //     "Address: " + hotels[i].address.streetAddress,
+        //     "Star Rating: " + hotels[i].starRating,
+        //     "Neighbourhood: " + hotels[i].neighbourhood
+        // ]
+
+        // var hotelInfoEl = document.createElement("ul");
         
-        for (var x = 0; x < hotelInfoArr.length; x++) {
-            var hotelInfoListEl = document.createElement("li");
-            hotelInfoListEl.textContent = hotelInfoArr[x];
-            hotelInfoEl.appendChild(hotelInfoListEl);
-        }
+        // for (var x = 0; x < hotelInfoArr.length; x++) {
+        //     var hotelInfoListEl = document.createElement("li");
+        //     hotelInfoListEl.textContent = hotelInfoArr[x];
+        //     hotelInfoEl.appendChild(hotelInfoListEl);
+        // }
         
-        hotelDivEl.appendChild(hotelHeadEl);
-        hotelDivEl.appendChild(hotelPriceEl);
-        hotelDivEl.appendChild(hotelInfoEl);
+        // append to card
+        hotelDivEl.appendChild(hotelImgDivEl);
+        hotelDivEl.appendChild(hotelInfoDivEl);
+        // hotelDivEl.appendChild(hotelInfoEl);
 
-        // use another API to get hotel first hotel photo available
-        getHotelPhoto(hotels[i].id, hotelDivEl);
+        // append to master div
+        hotelMasterDivEl.appendChild(hotelDivEl);
 
-        hotelArea.appendChild(hotelDivEl);
+        // append master div to hotel section
+        hotelArea.appendChild(hotelMasterDivEl);
+        
         inputButton.classList.remove("is-loading");
     }
 };

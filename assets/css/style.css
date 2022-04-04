@@ -20,13 +20,8 @@
     padding: 20px;
 }
 
-.hotel-img {
-  height: 60%;
-  width: 60%;
-}
-
-#hotel-img{
-  height: 400px;;
+.hotel-img{
+  height: 200px;;
   width: 400px;
   
 }

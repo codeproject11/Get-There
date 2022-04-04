@@ -227,6 +227,13 @@ var displayHotels = function (hotels) {
         hotelInfoDivEl.appendChild(hotelHeadEl);
         hotelInfoDivEl.appendChild(hotelPriceEl);
 
+        // create footer for card
+        var hotelFooterEl = document.createElement("div");
+        hotelFooterEl.className = "card-footer";
+        hotelFooterEl.innerHTML = '<p class="card-footer-item"><a href="" class="has-text-grey">View Detials</a></p>';
+
+        
+
         // var hotelInfoArr = [
         //     "Address: " + hotels[i].address.streetAddress,
         //     "Star Rating: " + hotels[i].starRating,
@@ -244,6 +251,7 @@ var displayHotels = function (hotels) {
         // append to card
         hotelDivEl.appendChild(hotelImgDivEl);
         hotelDivEl.appendChild(hotelInfoDivEl);
+        hotelDivEl.appendChild(hotelFooterEl);
         // hotelDivEl.appendChild(hotelInfoEl);
 
         // append to master div
@@ -251,7 +259,7 @@ var displayHotels = function (hotels) {
 
         // append master div to hotel section
         hotelArea.appendChild(hotelMasterDivEl);
-        
+
         inputButton.classList.remove("is-loading");
     }
 };

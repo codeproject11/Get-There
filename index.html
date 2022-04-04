@@ -31,7 +31,7 @@
         <!-- INPUT FORM WITH SUBMIT BUTTON -->
          
         <!-- Hero Section & form -->
-        <section class="columns">   
+        <section class="columns my-3 py-4">   
             <form class="form is-half">
                 <div class="field has-addons">
                     <p class="control">
@@ -116,7 +116,7 @@
         </section>
 
           <!-- API for hotels?-->
-            <div>
+              <div class="my-3 py-4">
                 <h3 class="title is-3">Hotels</h3>
                 <div id="hotel-area" class="columns is-mobile is-flex-wrap-wrap">
                   <h4 class="title has-text-centered is-size-4">Top New York City Deals</h4>
@@ -174,10 +174,10 @@
                     </div>
                   </div>
                 </div>
-            </div>
+              </div>
 
             <!-- API for restaurants-->
-            <div>
+              <div class="my-3 py-4">
                 <h3 class="title is-3">Restaurants</h3>
                 <div id="restaurant-area" class="columns is-mobile is-flex-wrap-wrap">
                   <div class="mt-5 columns is-centered is-8 is-variable">
@@ -228,11 +228,10 @@
                     </div>
                   </div>
                 </div>
-                
-            </div>
+              </div>
         <!-- MAIN SECTION OR DIV THAT WILL LINK TO JS (GIVE A UNIQUE ID) -->
         <!-- API for flights-->
-        <div class="flights">
+        <div class="flights my-3 py-4">
           <h3 class="title is-3">Flights</h3>
           <div class="columns has-background-grey-dark flight-child">
             <div class="column has-text-weight-bold" id="airline">Flight 1</div>
@@ -279,26 +278,57 @@
             <button class="button is-success" id="search">Select</button>
           </div>
       </div>
+
+      <!-- API for weather?-->
+      <div class="my-3 py-4">
+        <h3 class="title is-3">Weather</h3>
+        <div class="columns">
+          <div class="column is-one-third">
+            <!-- image of city goes here-->
+            <img src="" alt="placeholder">
+          </div>
+          <div class="column is-one-third">
+            <h3 class="title is-3 has-text-centered">City Name</h3>
+            <div class="columns" id="weather-display">
+              <div class="column">
+                <div id="day-of-week" class="has-text-weight-bold">Monday</div>
+                <img id="weather-icon" src="" alt="placeholder" />
+                <div id="temp">Temperature</div>
+              </div>
+              
+              <div class="column">
+                <div id="day-of-week" class="has-text-weight-bold">Tuesday</div>
+                <img id="weather-icon" src="" alt="placeholder" />
+                <div id="temp">Temperature</div>
+              </div>
+
+              <div class="column">
+                <div id="day-of-week" class="has-text-weight-bold">Wednesday</div>
+                <img id="weather-icon" src="" alt="placeholder" />
+                <div id="temp">Temperature</div>
+              </div>
+
+              <div class="column">
+                <div id="day-of-week" class="has-text-weight-bold">Thursday</div>
+                <img id="weather-icon" src="" alt="placeholder" />
+                <div id="temp">Temperature</div>
+              </div>
+
+              <div class="column">
+                <div id="day-of-week" class="has-text-weight-bold">Fridays</div>
+                <img id="weather-icon" src="" alt="placeholder" />
+                <div id="temp">Temperature</div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
     
         <!-- MAP -->
         <section>
 
         </section>
-    </section>
-
-    <!-- Popular Places Section-->
-    <section>
-      <!-- API for weather?-->
-      <div>
-        <h3 class="title is-3">Weather</h3>
-
-      </div>
-    </section>
-    <!-- MAIN SECTION OR DIV THAT WILL LINK TO JS (GIVE A UNIQUE ID) -->
-
-    <!-- MAP -->
-    <section>
-
     </section>
 
 <!-- FOOTER -->

@@ -230,7 +230,7 @@ var displayHotels = function (hotels) {
         // create footer for card
         var hotelFooterEl = document.createElement("div");
         hotelFooterEl.className = "card-footer";
-        hotelFooterEl.innerHTML = '<p class="card-footer-item"><a href="" class="has-text-grey">View Detials</a></p>';
+        hotelFooterEl.innerHTML = '<p class="card-footer-item"><a href="" class="has-text-grey">View Details</a></p>';
 
         
 

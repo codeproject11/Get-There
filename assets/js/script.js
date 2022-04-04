@@ -194,7 +194,7 @@ var displayHotels = function (hotels) {
     // clear up main area of hotel display
     hotelArea.innerHTML = "";
 
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < 4; i++) {
         // create main div element for card
         var hotelMasterDivEl = document.createElement("div");
         hotelMasterDivEl.classList = "column is-4-tablet is-3-desktop is-flex-wrap-wrap"; 
@@ -221,7 +221,7 @@ var displayHotels = function (hotels) {
         if (hotels[i].ratePlan) {
             hotelPriceEl.textContent = hotels[i].ratePlan.price.current;
         } else {
-            hotelPriceEl.textContent = "There are no pricing details for this hotel."
+            hotelPriceEl.textContent = "Pricing Unavailable"
         }
 
         hotelInfoDivEl.appendChild(hotelHeadEl);

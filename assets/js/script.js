@@ -231,7 +231,6 @@ var displayHotels = function (hotels) {
         var hotelFooterEl = document.createElement("div");
         hotelFooterEl.className = "card-footer";
         hotelFooterEl.innerHTML = '<p class="card-footer-item" id="hoteldetail' + i + '><span class="has-text-grey">View Details</span></p>';
-
         
 
         // var hotelInfoArr = [

@@ -4,6 +4,16 @@ var hotelArea = document.querySelector('#hotel-area');
 var hotelHeader = document.querySelector('#hotel-header')
 var flightArea = document.querySelector(".flights")
 var restaurantArea = document.querySelector(".restaurantSection")
+var weatherArea = document.querySelector("#weather-display")
+let forecastDays = [
+    { dayOfWeek: moment().format('dddd') },
+    { dayOfWeek: moment().add(1, 'days').format('dddd') },
+    { dayOfWeek: moment().add(2, 'days').format('dddd') },
+    { dayOfWeek: moment().add(3, 'days').format('dddd') },
+    { dayOfWeek: moment().add(4, 'days').format('dddd') },
+]
+let weatherCityName = document.querySelector(".weatherCityName")
+
 
 // api details for hotel api
 var options = {
@@ -51,7 +61,7 @@ var getCity = function (destinationCity) {
                     if (destinationData.length === 0) {
                         alert("Please enter a valid city name")
                     } else {
-                        // weatherData(destinationData[0].lat, destinationData[0].lon, destinationData[0].name)
+                        weatherData(destinationData[0].lat, destinationData[0].lon, destinationData[0].name)
                         restaurants(destinationData[0].lon, destinationData[0].lat)
                     };
                 });
@@ -65,7 +75,7 @@ var getCity = function (destinationCity) {
 };
 
 
-// // API to get the lat and lon from getCity() and fetch data from an API to retrieve weather information for the destination city
+// API to get the lat and lon from getCity() and fetch data from an API to retrieve weather information for the destination city
 var weatherData = function (lat, lon, name) {
     var apiURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=f9dcdf6690d0d22c5198371e258e8bb2";
 
@@ -73,13 +83,7 @@ var weatherData = function (lat, lon, name) {
         .then(function (res) {
             if (res.ok) {
                 res.json().then(function (data) {
-                    console.log(`Destination City: ${name}`)
-                    for (let i = 0; i < 5; i++) {
-                        console.log(`${Math.floor((data.daily[i].temp.day) - 273.15)}°C`)
-                        console.log(`${(data.daily[i].pop) * 100}%`)
-                        console.log(data.daily[i].weather[0].icon)
-                    }
-
+                    displayWeather(data, name)
                 });
             };
         })
@@ -89,6 +93,35 @@ var weatherData = function (lat, lon, name) {
             return
         });
 };
+
+// function to display weather information on the page
+var displayWeather = function (data, name) {
+    weatherArea.innerHTML = ""
+    weatherCityName.innerHTML = name
+    for (let i = 0; i < 5; i++) {
+        let dailyWeather = document.createElement("div")
+        dailyWeather.setAttribute("class", "column")
+
+        let date = document.createElement("div")
+        date.setAttribute("id", "day-of-week")
+        date.setAttribute("class", "has-text-weight-bold")
+        date.innerHTML = forecastDays[i].dayOfWeek
+
+        let weatherIcon = document.createElement("img")
+        weatherIcon.setAttribute("id", "weather-icon")
+        weatherIcon.setAttribute("src", 'http://openweathermap.org/img/wn/' + data.daily[i].weather[0].icon + '@2x.png')
+
+        let weatherTemp = document.createElement("div")
+        weatherTemp.setAttribute("id", "temp")
+        weatherTemp.innerHTML = `${Math.floor((data.daily[i].temp.day) - 273.15)}°C`
+
+        dailyWeather.appendChild(date)
+        dailyWeather.appendChild(weatherIcon)
+        dailyWeather.appendChild(weatherTemp)
+
+        weatherArea.appendChild(dailyWeather)
+    }
+}
 
 // function to find restaurants within a 10 km radius of the destination city coordinates
 var restaurants = function (lon, lat) {

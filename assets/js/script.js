@@ -377,11 +377,11 @@ const flightFunctionInfo = {
     }
 };
 var flights = function (currentAirport, destinationAirport, passengers) {
-    fetch("https://flight-fare-search.p.rapidapi.com/v2/flight/?from=" + currentAirport + "&to=" + destinationAirport + "&date=2022-04-04&adult=" + passengers + "&type=economy&currency=USD", flightFunctionInfo)
+    fetch("https://flight-fare-search.p.rapidapi.com/v2/flight/?from=" + currentAirport + "&to=" + destinationAirport + "&date=2022-04-06&adult=" + passengers + "&type=economy&currency=USD", flightFunctionInfo)
         .then(function (res) {
             if (res.ok) {
                 res.json().then(function (data) {
-                    flightDisplay(data)
+                    flightDisplay(data, passengers)
 
                 })
             }
@@ -392,9 +392,16 @@ var flights = function (currentAirport, destinationAirport, passengers) {
 }
 
 // function to display the flight data
-var flightDisplay = function (data) {
+var flightDisplay = function (data, passengers) {
     flightArea.innerHTML = ""
     flightArea.setAttribute("class", "my-3 py-4")
+
+    var flightsHeader = document.createElement("h3")
+    flightsHeader.setAttribute("class", "title is-3")
+    flightsHeader.innerHTML = "Cheapest Flights to your Destination"
+
+    flightArea.appendChild(flightsHeader);
+
     for (let i = 0; i < 5; i++) {
         var columnEl = document.createElement("div")
         columnEl.setAttribute("class", "columns has-background-grey-dark flight-child")
@@ -427,7 +434,7 @@ var flightDisplay = function (data) {
         var flightPriceEl = document.createElement("div")
         flightPriceEl.setAttribute("class", "column")
         flightPriceEl.setAttribute("id", "price")
-        flightPriceEl.innerHTML = "$" + Math.floor(data.results[i].totals.total) + "/Person"
+        flightPriceEl.innerHTML = "$" + Math.floor((data.results[i].totals.total / passengers)) + "/Person"
 
         // dynamically creating the flight select button
         var selectButtonEl = document.createElement("button")

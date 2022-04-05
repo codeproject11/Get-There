@@ -35,7 +35,7 @@
     <section class="columns my-3 py-4">
       <div class="column is-half">
         <form class="form">
-          <div class="field has-addons">
+          <!-- <div class="field has-addons">
             <p class="control">
               <button class="button">
                 <span class="icon is-small">
@@ -60,7 +60,7 @@
                 <span>Packages</span>
               </button>
             </p>
-          </div>
+          </div> -->
 
           <div class="field">
             <label class="label">Departing Airport</label>
@@ -79,7 +79,7 @@
           <div class="field">
             <label class="label">Destination City</label>
             <div class="control">
-              <input class="input" type="text" placeholder="Text input" id="destination">
+              <input class="input" type="text" placeholder="Vancouver" id="destination">
             </div>
           </div>
 
@@ -122,7 +122,7 @@
           <div class="field">
             <label class="label">Passengers</label>
             <div class="control">
-              <input class="input" type="text" placeholder="Text input" id="passengerInput">
+              <input class="input" type="text" placeholder="1" id="passengerInput">
             </div>
           </div>
 
@@ -132,7 +132,8 @@
 
       <div class="column is-half">
         <h3 class="title is-3 has-text-centered">We Get You There</h3>
-        <p class="px-5">We want to help your travel experience light and easy. You can think of us as your one stop shop for all of your travel essentials! Simply fill out our intuitive form and we well send you on your way!
+        <p class="px-5">We want to help your travel experience light and easy. You can think of us as your one stop shop
+          for all of your travel essentials! Simply fill out our intuitive form and we well send you on your way!
         </p>
       </div>
     </section>
@@ -217,7 +218,7 @@
 
     <!-- API for restaurants-->
     <div class="my-3 py-4">
-      <h3 class="title is-3">Restaurants</h3>
+      <h3 class="title is-3 restaurantTitle">Restaurants</h3>
       <div id="restaurant-area" class="columns is-mobile is-flex-wrap-wrap">
         <div class="mt-5 restaurantSection columns is-centered is-8 is-variable is-flex-wrap-wrap">
           <!-- <div class="column is-4-tablet is-3-desktop">
@@ -322,11 +323,7 @@
     <div class="my-3 py-4">
       <h3 class="title is-3">Weather</h3>
       <div class="columns">
-        <div class="column is-one-third">
-          <!-- image of city goes here-->
-          <img src="" alt="placeholder">
-        </div>
-        <div class="column is-two-thirds weather-icons">
+        <div class="column mx-auto is-two-thirds weather-icons weatherDiv hidden">
           <h3 class="title is-3 has-text-centered weatherCityName">City Name</h3>
           <div class="columns" id="weather-display">
             <div class="column">
@@ -361,6 +358,13 @@
 
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- Section to appench previous searches -->
+    <div class="my-3 py-3 searchesSection">
+      <div class="columns previousSearches">
+
       </div>
     </div>
 

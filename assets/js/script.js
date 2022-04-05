@@ -1,18 +1,19 @@
 // variable to access main search form in js (to apply submit event listener to);
 var inputButton = document.querySelector('#search');
 var hotelArea = document.querySelector('#hotel-area');
-var hotelHeader = document.querySelector('#hotel-header')
-var flightArea = document.querySelector(".flights")
-var restaurantArea = document.querySelector(".restaurantSection")
-var weatherArea = document.querySelector("#weather-display")
+var hotelHeader = document.querySelector('#hotel-header');
+var flightArea = document.querySelector(".flights");
+var restaurantArea = document.querySelector(".restaurantSection");
+var weatherArea = document.querySelector("#weather-display");
 let forecastDays = [
     { dayOfWeek: moment().format('dddd') },
     { dayOfWeek: moment().add(1, 'days').format('dddd') },
     { dayOfWeek: moment().add(2, 'days').format('dddd') },
     { dayOfWeek: moment().add(3, 'days').format('dddd') },
     { dayOfWeek: moment().add(4, 'days').format('dddd') },
-]
-let weatherCityName = document.querySelector(".weatherCityName")
+];
+let weatherCityName = document.querySelector(".weatherCityName");
+var searches = [];
 
 
 // api details for hotel api
@@ -20,7 +21,7 @@ var options = {
     method: 'GET',
     headers: {
         'X-RapidAPI-Host': 'hotels4.p.rapidapi.com',
-        'X-RapidAPI-Key': '4095781a70mshead3ea36f5198b9p145325jsn70b930dd6ab8'
+        'X-RapidAPI-Key': 'c9b69757eamsha9f112705e8ec46p1cd72ejsnb07eb43567ae'
     }
 };
 
@@ -36,16 +37,24 @@ var storeInput = function (event) {
     var passengers = document.querySelector("#passengerInput").value;
     inputButton.classList.add("is-loading");
 
-    if (destinationCity && destinationAirport && currentAirport) {
+    if (destinationCity && destinationAirport && currentAirport && passengers) {
         document.querySelector("input[id='destination']").value = '';
         document.querySelector("input[id='destinationAirport']").value = "";
         document.querySelector("input[id='currentAirport']").value = "";
         document.querySelector("input[id='passengerInput']").value = "";
-        getCity(destinationCity);
-        flights(currentAirport, destinationAirport, passengers)
-        getCityId(destinationCity);
+        let userInput = {
+            destination: destinationCity,
+            departingAirport: currentAirport,
+            arrivingAirport: destinationAirport,
+            passengersTotal: passengers
+        }
+        getCity(userInput.destination);
+        flights(userInput.departingAirport, userInput.arrivingAirport, userInput.passengersTotal, userInput.destination);
+        getCityId(userInput.destination);
+        searches.push(userInput)
+        saveFunction(searches)
     } else {
-        alert("Please enter a city name")
+        alert("Please enter all information to start planning your trip!")
         inputButton.classList.remove("is-loading");
     }
 
@@ -62,7 +71,7 @@ var getCity = function (destinationCity) {
                         alert("Please enter a valid city name")
                     } else {
                         weatherData(destinationData[0].lat, destinationData[0].lon, destinationData[0].name)
-                        restaurants(destinationData[0].lon, destinationData[0].lat)
+                        restaurants(destinationData[0].lon, destinationData[0].lat, destinationData[0].name)
                     };
                 });
             };
@@ -98,6 +107,8 @@ var weatherData = function (lat, lon, name) {
 var displayWeather = function (data, name) {
     weatherArea.innerHTML = ""
     weatherCityName.innerHTML = name
+    let hiddenWeatherSection = document.querySelector(".weatherDiv")
+    hiddenWeatherSection.classList.remove("hidden")
     for (let i = 0; i < 5; i++) {
         let dailyWeather = document.createElement("div")
         dailyWeather.setAttribute("class", "column")
@@ -124,7 +135,7 @@ var displayWeather = function (data, name) {
 }
 
 // function to find restaurants within a 10 km radius of the destination city coordinates
-var restaurants = function (lon, lat) {
+var restaurants = function (lon, lat, name) {
     var apiURL = "https://api.opentripmap.com/0.1/en/places/radius?radius=10000&lon=" + lon + "&lat=" + lat + "&rate=3&kinds=restaurants&limit=4&apikey=5ae2e3f221c38a28845f05b69efdf761d15a073a57889029b8209b98"
 
     fetch(apiURL)
@@ -132,7 +143,7 @@ var restaurants = function (lon, lat) {
             if (res.ok) {
                 res.json().then(function (data) {
                     console.log("Restaurants to Visit")
-                    displayRestaurant(data.features)
+                    displayRestaurant(data.features, name)
                 })
             }
         })
@@ -145,8 +156,12 @@ var restaurants = function (lon, lat) {
 
 
 // function to display restaurant information
-var displayRestaurant = function (data) {
+var displayRestaurant = function (data, name) {
     restaurantArea.innerHTML = ""
+
+    let restuarantTitle = document.querySelector(".restaurantTitle")
+    restuarantTitle.innerHTML = `Top Rated Restaurants in ${name}`
+
     for (let i = 0; i < data.length; i++) {
         let restaurantDivEl = document.createElement("div")
         restaurantDivEl.setAttribute("class", "column is-4-tablet is-3-desktop")
@@ -175,7 +190,7 @@ var displayRestaurant = function (data) {
         let footerLink = document.createElement("a")
         restaurantLinks(data[i].properties.xid, footerLink)
         footerLink.setAttribute("class", "has-text-grey")
-        footerLink.innerHTML = "View Details"
+        footerLink.innerHTML = "Learn More"
         footerEl.appendChild(footerLink)
         restaurantFooterEl.appendChild(footerEl)
 
@@ -294,12 +309,14 @@ var displayHotels = function (hotels) {
         // create div for hotel name and price
         var hotelInfoDivEl = document.createElement("div");
         hotelInfoDivEl.className = "card-content";
+        hotelInfoDivEl.setAttribute("id", "hotel" + i);
 
         var hotelHeadEl = document.createElement("p");
         hotelHeadEl.className = "title is-size-5";
         hotelHeadEl.textContent = hotels[i].name;
 
         var hotelPriceEl = document.createElement("p");
+
         if (hotels[i].ratePlan) {
             hotelPriceEl.textContent = hotels[i].ratePlan.price.current;
         } else {
@@ -312,23 +329,11 @@ var displayHotels = function (hotels) {
         // create footer for card
         var hotelFooterEl = document.createElement("div");
         hotelFooterEl.className = "card-footer";
-        hotelFooterEl.innerHTML = '<p class="card-footer-item"><a href="" class="has-text-grey">View Details</a></p>';
+        hotelFooterEl.innerHTML = '<p class="card-footer-item button" id="hotel' + i + '"<span class="has-text-grey">View Details</span></p>';
+        hotelFooterEl.addEventListener("click", displayHotelDetails, { once: true });
+        hotelFooterEl.myParam = hotels[i];
 
 
-
-        // var hotelInfoArr = [
-        //     "Address: " + hotels[i].address.streetAddress,
-        //     "Star Rating: " + hotels[i].starRating,
-        //     "Neighbourhood: " + hotels[i].neighbourhood
-        // ]
-
-        // var hotelInfoEl = document.createElement("ul");
-
-        // for (var x = 0; x < hotelInfoArr.length; x++) {
-        //     var hotelInfoListEl = document.createElement("li");
-        //     hotelInfoListEl.textContent = hotelInfoArr[x];
-        //     hotelInfoEl.appendChild(hotelInfoListEl);
-        // }
 
         // append to card
         hotelDivEl.appendChild(hotelImgDivEl);
@@ -367,21 +372,66 @@ var displayHotelPhoto = function (hotelImgUrl, selectedDiv) {
     selectedDiv.appendChild(hotelImgEl);
 }
 
+var displayHotelDetails = function (event) {
+    var idNeeded = event.target.getAttribute("id");
+    console.log(idNeeded);
+    var selectedInfo = document.querySelector("div[id='" + idNeeded + "'")
+    var hotelSelected = event.currentTarget.myParam;
 
-// // function to get IATA codes for the current city and destination city and find flights
+
+
+    var hotelInfoArr = [
+        "Address: " + hotelSelected.address.streetAddress,
+        "Star Rating: " + hotelSelected.starRating,
+        "Neighbourhood: " + hotelSelected.neighbourhood
+    ]
+
+    var hotelInfoEl = document.createElement("ul");
+
+    for (var x = 0; x < hotelInfoArr.length; x++) {
+        var hotelInfoListEl = document.createElement("li");
+        hotelInfoListEl.textContent = hotelInfoArr[x];
+        hotelInfoEl.appendChild(hotelInfoListEl);
+    }
+
+    selectedInfo.appendChild(hotelInfoEl);
+
+    this.innerHTML = '<p class="card-footer-item button" id="hotel' + idNeeded + '"<span class="has-text-grey">Hide Details</span></p>';
+    this.removeEventListener("click", displayHotelDetails, { once: true });
+    this.addEventListener("click", removeHotelDetails, { once: true });
+    this.myParam1 = hotelInfoEl;
+    this.myParam2 = hotelSelected;
+    this.myParam3 = idNeeded;
+
+}
+
+var removeHotelDetails = function (event) {
+    listToHide = event.currentTarget.myParam1;
+    listToHide.remove();
+
+    hotelSelected = event.currentTarget.myParam2;
+    idNeeded = event.currentTarget.myParam3;
+    this.innerHTML = '<p class="card-footer-item button" id="' + idNeeded + '"<span class="has-text-grey">View Details</span></p>';
+    this.removeEventListener("click", removeHotelDetails, { once: true });
+    this.addEventListener("click", displayHotelDetails, { once: true });
+    this.myParam = hotelSelected;
+}
+
+// function to get the cheapest flights from the departing airport to the arriving airport
 const flightFunctionInfo = {
     method: 'GET',
     headers: {
         'X-RapidAPI-Host': 'flight-fare-search.p.rapidapi.com',
-        'X-RapidAPI-Key': '4095781a70mshead3ea36f5198b9p145325jsn70b930dd6ab8'
+        // 'X-RapidAPI-Key': '4095781a70mshead3ea36f5198b9p145325jsn70b930dd6ab8'
+        'X-RapidAPI-Key': 'e84a340de7mshbca181db5c6c926p1594a3jsna0142e0ad055'
     }
 };
-var flights = function (currentAirport, destinationAirport, passengers) {
-    fetch("https://flight-fare-search.p.rapidapi.com/v2/flight/?from=" + currentAirport + "&to=" + destinationAirport + "&date=2022-04-04&adult=" + passengers + "&type=economy&currency=USD", flightFunctionInfo)
+var flights = function (currentAirport, destinationAirport, passengers, destinationCity) {
+    fetch("https://flight-fare-search.p.rapidapi.com/v2/flight/?from=" + currentAirport + "&to=" + destinationAirport + "&date=2022-04-06&adult=" + passengers + "&type=economy&currency=USD", flightFunctionInfo)
         .then(function (res) {
             if (res.ok) {
                 res.json().then(function (data) {
-                    flightDisplay(data)
+                    flightDisplay(data, passengers, destinationCity)
 
                 })
             }
@@ -392,9 +442,16 @@ var flights = function (currentAirport, destinationAirport, passengers) {
 }
 
 // function to display the flight data
-var flightDisplay = function (data) {
+var flightDisplay = function (data, passengers, destinationCity) {
     flightArea.innerHTML = ""
     flightArea.setAttribute("class", "my-3 py-4")
+
+    var flightsHeader = document.createElement("h3")
+    flightsHeader.setAttribute("class", "title is-3")
+    flightsHeader.innerHTML = `Cheapest Flights to ${destinationCity}`
+
+    flightArea.appendChild(flightsHeader);
+
     for (let i = 0; i < 5; i++) {
         var columnEl = document.createElement("div")
         columnEl.setAttribute("class", "columns has-background-grey-dark flight-child")
@@ -427,7 +484,7 @@ var flightDisplay = function (data) {
         var flightPriceEl = document.createElement("div")
         flightPriceEl.setAttribute("class", "column")
         flightPriceEl.setAttribute("id", "price")
-        flightPriceEl.innerHTML = "$" + Math.floor(data.results[i].totals.total) + "/Person"
+        flightPriceEl.innerHTML = "$" + Math.floor((data.results[i].totals.total / passengers)) + "/Person"
 
         // dynamically creating the flight select button
         var selectButtonEl = document.createElement("button")
@@ -447,8 +504,77 @@ var flightDisplay = function (data) {
     }
 }
 
+// function to save user search details into local storage
+var saveFunction = function (data) {
+    localStorage.setItem("savedSearches", JSON.stringify(data));
+};
+
+// function to retrieve local storage data
+var loadFunction = function () {
+    let retrievedData = localStorage.getItem("savedSearches");
+    if (!retrievedData) {
+        return false
+    } else {
+        let loadData = JSON.parse(retrievedData)
+        searches = loadData
+        previousSearches(searches)
+    }
+}
+
+// function to take local storage retrieved data and create a list of the search details that the user previously provided
+var previousSearches = function (searches) {
+    let searchesDiv = document.querySelector(".searchesSection")
+
+
+
+    let previousSearchesTitle = document.createElement("h3")
+    previousSearchesTitle.setAttribute("class", "title")
+    previousSearchesTitle.innerHTML = "Previous Searches"
+
+    let clearButton = document.createElement("button")
+    clearButton.innerHTML = "Clear Search History"
+    clearButton.setAttribute("class", "mb-3")
+    clearButton.addEventListener("click", clearData)
+    searchesDiv.prepend(clearButton)
+    searchesDiv.prepend(previousSearchesTitle)
+
+    createSearchHistory(searches)
+}
+let createSearchHistory = function (searches) {
+    let previousSearchSection = document.querySelector(".previousSearches")
+
+    for (let i = 0; i < searches.length; i++) {
+        let userSearch = document.createElement("div")
+        userSearch.setAttribute("class", "column")
+        let searchDetails = document.createElement("ul")
+        let searchDestination = document.createElement("li")
+        searchDestination.innerHTML = `Destination City: ${searches[i].destination}`
+        let searchDepartingAirport = document.createElement("li")
+        searchDepartingAirport.innerHTML = `Departing Airport: ${searches[i].departingAirport}`
+        let searchArrivingAirport = document.createElement("li")
+        searchArrivingAirport.innerHTML = `Arriving Airport: ${searches[i].arrivingAirport}`
+        let searchPassengers = document.createElement("li")
+        searchPassengers.innerHTML = `Number of Passengers: ${searches[i].passengersTotal}`
+
+        searchDetails.appendChild(searchDestination)
+        searchDetails.appendChild(searchDepartingAirport)
+        searchDetails.appendChild(searchArrivingAirport)
+        searchDetails.appendChild(searchPassengers)
+
+        userSearch.appendChild(searchDetails)
+
+        previousSearchSection.appendChild(userSearch)
+    }
+}
+
+// function to clear the local storage data and refresh the page
+let clearData = function () {
+    localStorage.clear()
+    window.location.reload();
+}
+
+
 // add event listener to form
 inputButton.addEventListener("click", storeInput);
+loadFunction()
 
-
-// display functions (1 for flights, 1 for weather, 1 for hotels/restaurants)

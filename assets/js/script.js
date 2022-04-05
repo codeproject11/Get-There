@@ -20,7 +20,7 @@ var options = {
     method: 'GET',
     headers: {
         'X-RapidAPI-Host': 'hotels4.p.rapidapi.com',
-        'X-RapidAPI-Key': '4095781a70mshead3ea36f5198b9p145325jsn70b930dd6ab8'
+        'X-RapidAPI-Key': 'c9b69757eamsha9f112705e8ec46p1cd72ejsnb07eb43567ae'
     }
 };
 
@@ -42,7 +42,7 @@ var storeInput = function (event) {
         document.querySelector("input[id='currentAirport']").value = "";
         document.querySelector("input[id='passengerInput']").value = "";
         getCity(destinationCity);
-        flights(currentAirport, destinationAirport, passengers)
+        // flights(currentAirport, destinationAirport, passengers);
         getCityId(destinationCity);
     } else {
         alert("Please enter a city name")
@@ -294,12 +294,14 @@ var displayHotels = function (hotels) {
         // create div for hotel name and price
         var hotelInfoDivEl = document.createElement("div");
         hotelInfoDivEl.className = "card-content";
+        hotelInfoDivEl.setAttribute("id", "hotel" + i);
 
         var hotelHeadEl = document.createElement("p");
         hotelHeadEl.className = "title is-size-5";
         hotelHeadEl.textContent = hotels[i].name;
 
         var hotelPriceEl = document.createElement("p");
+        
         if (hotels[i].ratePlan) {
             hotelPriceEl.textContent = hotels[i].ratePlan.price.current;
         } else {
@@ -312,24 +314,12 @@ var displayHotels = function (hotels) {
         // create footer for card
         var hotelFooterEl = document.createElement("div");
         hotelFooterEl.className = "card-footer";
-        hotelFooterEl.innerHTML = '<p class="card-footer-item"><a href="" class="has-text-grey">View Details</a></p>';
+        hotelFooterEl.innerHTML = '<p class="card-footer-item button" id="hotel'+ i + '"<span class="has-text-grey">View Details</span></p>';
+        hotelFooterEl.addEventListener("click", displayHotelDetails, {once : true});
+        hotelFooterEl.myParam = hotels[i];
 
-
-
-        // var hotelInfoArr = [
-        //     "Address: " + hotels[i].address.streetAddress,
-        //     "Star Rating: " + hotels[i].starRating,
-        //     "Neighbourhood: " + hotels[i].neighbourhood
-        // ]
-
-        // var hotelInfoEl = document.createElement("ul");
-
-        // for (var x = 0; x < hotelInfoArr.length; x++) {
-        //     var hotelInfoListEl = document.createElement("li");
-        //     hotelInfoListEl.textContent = hotelInfoArr[x];
-        //     hotelInfoEl.appendChild(hotelInfoListEl);
-        // }
-
+        
+        
         // append to card
         hotelDivEl.appendChild(hotelImgDivEl);
         hotelDivEl.appendChild(hotelInfoDivEl);
@@ -367,6 +357,11 @@ var displayHotelPhoto = function (hotelImgUrl, selectedDiv) {
     selectedDiv.appendChild(hotelImgEl);
 }
 
+var displayHotelDetails = function (event) {
+    var idNeeded = event.target.getAttribute("id");
+    console.log(idNeeded);
+    var selectedInfo = document.querySelector("div[id='" + idNeeded + "'")
+    var hotelSelected = event.currentTarget.myParam;
 
 // // function to get IATA codes for the current city and destination city and find flights
 const flightFunctionInfo = {
@@ -454,6 +449,42 @@ var flightDisplay = function (data, passengers) {
     }
 }
 
+    var hotelInfoArr = [
+            "Address: " + hotelSelected.address.streetAddress,
+            "Star Rating: " + hotelSelected.starRating,
+            "Neighbourhood: " + hotelSelected.neighbourhood
+        ]
+
+    var hotelInfoEl = document.createElement("ul");
+    
+    for (var x = 0; x < hotelInfoArr.length; x++) {
+        var hotelInfoListEl = document.createElement("li");
+        hotelInfoListEl.textContent = hotelInfoArr[x];
+        hotelInfoEl.appendChild(hotelInfoListEl);
+    }
+
+    selectedInfo.appendChild(hotelInfoEl);
+
+    this.innerHTML = '<p class="card-footer-item button" id="hotel'+ idNeeded + '"<span class="has-text-grey">Hide Details</span></p>';
+    this.removeEventListener("click", displayHotelDetails, {once : true});
+    this.addEventListener("click", removeHotelDetails, {once : true});
+    this.myParam1 = hotelInfoEl;
+    this.myParam2 = hotelSelected;
+    this.myParam3 = idNeeded;
+
+}
+
+var removeHotelDetails = function(event) {
+    listToHide = event.currentTarget.myParam1;
+    listToHide.remove();
+
+    hotelSelected = event.currentTarget.myParam2;
+    idNeeded = event.currentTarget.myParam3;
+    this.innerHTML = '<p class="card-footer-item button" id="'+ idNeeded + '"<span class="has-text-grey">View Details</span></p>';
+    this.removeEventListener("click", removeHotelDetails, {once : true});
+    this.addEventListener("click", displayHotelDetails, {once : true});
+    this.myParam = hotelSelected;
+}
 // add event listener to form
 inputButton.addEventListener("click", storeInput);
 

@@ -373,7 +373,8 @@ const flightFunctionInfo = {
     method: 'GET',
     headers: {
         'X-RapidAPI-Host': 'flight-fare-search.p.rapidapi.com',
-        'X-RapidAPI-Key': '4095781a70mshead3ea36f5198b9p145325jsn70b930dd6ab8'
+        // 'X-RapidAPI-Key': '4095781a70mshead3ea36f5198b9p145325jsn70b930dd6ab8'
+        'X-RapidAPI-Key': 'e84a340de7mshbca181db5c6c926p1594a3jsna0142e0ad055'
     }
 };
 var flights = function (currentAirport, destinationAirport, passengers) {

@@ -36,16 +36,16 @@ var storeInput = function (event) {
     var passengers = document.querySelector("#passengerInput").value;
     inputButton.classList.add("is-loading");
 
-    if (destinationCity && destinationAirport && currentAirport) {
+    if (destinationCity && destinationAirport && currentAirport && passengers) {
         document.querySelector("input[id='destination']").value = '';
         document.querySelector("input[id='destinationAirport']").value = "";
         document.querySelector("input[id='currentAirport']").value = "";
         document.querySelector("input[id='passengerInput']").value = "";
         getCity(destinationCity);
-        flights(currentAirport, destinationAirport, passengers);
+        flights(currentAirport, destinationAirport, passengers, destinationCity);
         getCityId(destinationCity);
     } else {
-        alert("Please enter a city name")
+        alert("Please enter all information to start planning your trip!")
         inputButton.classList.remove("is-loading");
     }
 
@@ -62,7 +62,7 @@ var getCity = function (destinationCity) {
                         alert("Please enter a valid city name")
                     } else {
                         weatherData(destinationData[0].lat, destinationData[0].lon, destinationData[0].name)
-                        restaurants(destinationData[0].lon, destinationData[0].lat)
+                        restaurants(destinationData[0].lon, destinationData[0].lat, destinationData[0].name)
                     };
                 });
             };
@@ -124,7 +124,7 @@ var displayWeather = function (data, name) {
 }
 
 // function to find restaurants within a 10 km radius of the destination city coordinates
-var restaurants = function (lon, lat) {
+var restaurants = function (lon, lat, name) {
     var apiURL = "https://api.opentripmap.com/0.1/en/places/radius?radius=10000&lon=" + lon + "&lat=" + lat + "&rate=3&kinds=restaurants&limit=4&apikey=5ae2e3f221c38a28845f05b69efdf761d15a073a57889029b8209b98"
 
     fetch(apiURL)
@@ -132,7 +132,7 @@ var restaurants = function (lon, lat) {
             if (res.ok) {
                 res.json().then(function (data) {
                     console.log("Restaurants to Visit")
-                    displayRestaurant(data.features)
+                    displayRestaurant(data.features, name)
                 })
             }
         })
@@ -145,8 +145,12 @@ var restaurants = function (lon, lat) {
 
 
 // function to display restaurant information
-var displayRestaurant = function (data) {
+var displayRestaurant = function (data, name) {
     restaurantArea.innerHTML = ""
+
+    let restuarantTitle = document.querySelector(".restaurantTitle")
+    restuarantTitle.innerHTML = `Top Rated Restaurants in ${name}`
+
     for (let i = 0; i < data.length; i++) {
         let restaurantDivEl = document.createElement("div")
         restaurantDivEl.setAttribute("class", "column is-4-tablet is-3-desktop")
@@ -402,7 +406,7 @@ var removeHotelDetails = function (event) {
     this.myParam = hotelSelected;
 }
 
-// // function to get IATA codes for the current city and destination city and find flights
+// function to get the cheapest flights from the departing airport to the arriving airport
 const flightFunctionInfo = {
     method: 'GET',
     headers: {
@@ -411,12 +415,12 @@ const flightFunctionInfo = {
         'X-RapidAPI-Key': 'e84a340de7mshbca181db5c6c926p1594a3jsna0142e0ad055'
     }
 };
-var flights = function (currentAirport, destinationAirport, passengers) {
+var flights = function (currentAirport, destinationAirport, passengers, destinationCity) {
     fetch("https://flight-fare-search.p.rapidapi.com/v2/flight/?from=" + currentAirport + "&to=" + destinationAirport + "&date=2022-04-06&adult=" + passengers + "&type=economy&currency=USD", flightFunctionInfo)
         .then(function (res) {
             if (res.ok) {
                 res.json().then(function (data) {
-                    flightDisplay(data, passengers)
+                    flightDisplay(data, passengers, destinationCity)
 
                 })
             }
@@ -427,13 +431,13 @@ var flights = function (currentAirport, destinationAirport, passengers) {
 }
 
 // function to display the flight data
-var flightDisplay = function (data, passengers) {
+var flightDisplay = function (data, passengers, destinationCity) {
     flightArea.innerHTML = ""
     flightArea.setAttribute("class", "my-3 py-4")
 
     var flightsHeader = document.createElement("h3")
     flightsHeader.setAttribute("class", "title is-3")
-    flightsHeader.innerHTML = "Cheapest Flights to your Destination"
+    flightsHeader.innerHTML = `Cheapest Flights to ${destinationCity}`
 
     flightArea.appendChild(flightsHeader);
 

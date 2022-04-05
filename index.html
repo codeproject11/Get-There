@@ -79,7 +79,7 @@
           <div class="field">
             <label class="label">Destination City</label>
             <div class="control">
-              <input class="input" type="text" placeholder="Text input" id="destination">
+              <input class="input" type="text" placeholder="Vancouver" id="destination">
             </div>
           </div>
 
@@ -95,7 +95,7 @@
           <div class="field">
             <label class="label">Passengers</label>
             <div class="control">
-              <input class="input" type="text" placeholder="Text input" id="passengerInput">
+              <input class="input" type="text" placeholder="1" id="passengerInput">
             </div>
           </div>
 
@@ -296,11 +296,7 @@
     <div class="my-3 py-4">
       <h3 class="title is-3">Weather</h3>
       <div class="columns">
-        <div class="column is-one-third">
-          <!-- image of city goes here-->
-          <img src="" alt="placeholder">
-        </div>
-        <div class="column is-two-thirds weather-icons">
+        <div class="column mx-auto is-two-thirds weather-icons weatherDiv hidden">
           <h3 class="title is-3 has-text-centered weatherCityName">City Name</h3>
           <div class="columns" id="weather-display">
             <div class="column">
@@ -335,6 +331,13 @@
 
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- Section to appench previous searches -->
+    <div class="my-3 py-3 searchesSection">
+      <div class="columns previousSearches">
+
       </div>
     </div>
 

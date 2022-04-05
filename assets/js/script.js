@@ -1,18 +1,19 @@
 // variable to access main search form in js (to apply submit event listener to);
 var inputButton = document.querySelector('#search');
 var hotelArea = document.querySelector('#hotel-area');
-var hotelHeader = document.querySelector('#hotel-header')
-var flightArea = document.querySelector(".flights")
-var restaurantArea = document.querySelector(".restaurantSection")
-var weatherArea = document.querySelector("#weather-display")
+var hotelHeader = document.querySelector('#hotel-header');
+var flightArea = document.querySelector(".flights");
+var restaurantArea = document.querySelector(".restaurantSection");
+var weatherArea = document.querySelector("#weather-display");
 let forecastDays = [
     { dayOfWeek: moment().format('dddd') },
     { dayOfWeek: moment().add(1, 'days').format('dddd') },
     { dayOfWeek: moment().add(2, 'days').format('dddd') },
     { dayOfWeek: moment().add(3, 'days').format('dddd') },
     { dayOfWeek: moment().add(4, 'days').format('dddd') },
-]
-let weatherCityName = document.querySelector(".weatherCityName")
+];
+let weatherCityName = document.querySelector(".weatherCityName");
+var searches = [];
 
 
 // api details for hotel api
@@ -41,9 +42,17 @@ var storeInput = function (event) {
         document.querySelector("input[id='destinationAirport']").value = "";
         document.querySelector("input[id='currentAirport']").value = "";
         document.querySelector("input[id='passengerInput']").value = "";
-        getCity(destinationCity);
-        flights(currentAirport, destinationAirport, passengers, destinationCity);
-        getCityId(destinationCity);
+        let userInput = {
+            destination: destinationCity,
+            departingAirport: currentAirport,
+            arrivingAirport: destinationAirport,
+            passengersTotal: passengers
+        }
+        getCity(userInput.destination);
+        flights(userInput.departingAirport, userInput.arrivingAirport, userInput.passengersTotal, userInput.destination);
+        getCityId(userInput.destination);
+        searches.push(userInput)
+        saveFunction(searches)
     } else {
         alert("Please enter all information to start planning your trip!")
         inputButton.classList.remove("is-loading");
@@ -98,6 +107,8 @@ var weatherData = function (lat, lon, name) {
 var displayWeather = function (data, name) {
     weatherArea.innerHTML = ""
     weatherCityName.innerHTML = name
+    let hiddenWeatherSection = document.querySelector(".weatherDiv")
+    hiddenWeatherSection.classList.remove("hidden")
     for (let i = 0; i < 5; i++) {
         let dailyWeather = document.createElement("div")
         dailyWeather.setAttribute("class", "column")
@@ -493,8 +504,77 @@ var flightDisplay = function (data, passengers, destinationCity) {
     }
 }
 
+// function to save user search details into local storage
+var saveFunction = function (data) {
+    localStorage.setItem("savedSearches", JSON.stringify(data));
+};
+
+// function to retrieve local storage data
+var loadFunction = function () {
+    let retrievedData = localStorage.getItem("savedSearches");
+    if (!retrievedData) {
+        return false
+    } else {
+        let loadData = JSON.parse(retrievedData)
+        searches = loadData
+        previousSearches(searches)
+    }
+}
+
+// function to take local storage retrieved data and create a list of the search details that the user previously provided
+var previousSearches = function (searches) {
+    let searchesDiv = document.querySelector(".searchesSection")
+
+
+
+    let previousSearchesTitle = document.createElement("h3")
+    previousSearchesTitle.setAttribute("class", "title")
+    previousSearchesTitle.innerHTML = "Previous Searches"
+
+    let clearButton = document.createElement("button")
+    clearButton.innerHTML = "Clear Search History"
+    clearButton.setAttribute("class", "mb-3")
+    clearButton.addEventListener("click", clearData)
+    searchesDiv.prepend(clearButton)
+    searchesDiv.prepend(previousSearchesTitle)
+
+    createSearchHistory(searches)
+}
+let createSearchHistory = function (searches) {
+    let previousSearchSection = document.querySelector(".previousSearches")
+
+    for (let i = 0; i < searches.length; i++) {
+        let userSearch = document.createElement("div")
+        userSearch.setAttribute("class", "column")
+        let searchDetails = document.createElement("ul")
+        let searchDestination = document.createElement("li")
+        searchDestination.innerHTML = `Destination City: ${searches[i].destination}`
+        let searchDepartingAirport = document.createElement("li")
+        searchDepartingAirport.innerHTML = `Departing Airport: ${searches[i].departingAirport}`
+        let searchArrivingAirport = document.createElement("li")
+        searchArrivingAirport.innerHTML = `Arriving Airport: ${searches[i].arrivingAirport}`
+        let searchPassengers = document.createElement("li")
+        searchPassengers.innerHTML = `Number of Passengers: ${searches[i].passengersTotal}`
+
+        searchDetails.appendChild(searchDestination)
+        searchDetails.appendChild(searchDepartingAirport)
+        searchDetails.appendChild(searchArrivingAirport)
+        searchDetails.appendChild(searchPassengers)
+
+        userSearch.appendChild(searchDetails)
+
+        previousSearchSection.appendChild(userSearch)
+    }
+}
+
+// function to clear the local storage data and refresh the page
+let clearData = function () {
+    localStorage.clear()
+    window.location.reload();
+}
+
+
 // add event listener to form
 inputButton.addEventListener("click", storeInput);
+loadFunction()
 
-
-// display functions (1 for flights, 1 for weather, 1 for hotels/restaurants)

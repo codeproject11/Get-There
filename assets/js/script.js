@@ -1,18 +1,18 @@
 // variable to access main search form in js (to apply submit event listener to);
 var inputButton = document.querySelector('#search');
 var hotelArea = document.querySelector('#hotel-area');
-var hotelHeader = document.querySelector('#hotel-header')
-var flightArea = document.querySelector(".flights")
-var restaurantArea = document.querySelector(".restaurantSection")
-var weatherArea = document.querySelector("#weather-display")
+var hotelHeader = document.querySelector('#hotel-header');
+var flightArea = document.querySelector(".flights");
+var restaurantArea = document.querySelector(".restaurantSection");
+var weatherArea = document.querySelector("#weather-display");
 let forecastDays = [
     { dayOfWeek: moment().format('dddd') },
     { dayOfWeek: moment().add(1, 'days').format('dddd') },
     { dayOfWeek: moment().add(2, 'days').format('dddd') },
     { dayOfWeek: moment().add(3, 'days').format('dddd') },
     { dayOfWeek: moment().add(4, 'days').format('dddd') },
-]
-let weatherCityName = document.querySelector(".weatherCityName")
+];
+let weatherCityName = document.querySelector(".weatherCityName");
 var searches = [];
 
 
@@ -35,7 +35,7 @@ var storeInput = function (event) {
     var currentAirport = document.querySelector("#currentAirport").value;
     var destinationAirport = document.querySelector("#destinationAirport").value;
     var passengers = document.querySelector("#passengerInput").value;
-    // inputButton.classList.add("is-loading");
+    inputButton.classList.add("is-loading");
 
     if (destinationCity && destinationAirport && currentAirport && passengers) {
         document.querySelector("input[id='destination']").value = '';
@@ -48,9 +48,9 @@ var storeInput = function (event) {
             arrivingAirport: destinationAirport,
             passengersTotal: passengers
         }
-        // getCity(userInput.destination);
-        // flights(userInput.departingAirport, userInput.arrivingAirport, userInput.passengersTotal, userInput.destination);
-        // getCityId(userInput.destination);
+        getCity(userInput.destination);
+        flights(userInput.departingAirport, userInput.arrivingAirport, userInput.passengersTotal, userInput.destination);
+        getCityId(userInput.destination);
         searches.push(userInput)
         saveFunction(searches)
     } else {
@@ -107,6 +107,8 @@ var weatherData = function (lat, lon, name) {
 var displayWeather = function (data, name) {
     weatherArea.innerHTML = ""
     weatherCityName.innerHTML = name
+    let hiddenWeatherSection = document.querySelector(".weatherDiv")
+    hiddenWeatherSection.classList.remove("hidden")
     for (let i = 0; i < 5; i++) {
         let dailyWeather = document.createElement("div")
         dailyWeather.setAttribute("class", "column")
@@ -502,10 +504,12 @@ var flightDisplay = function (data, passengers, destinationCity) {
     }
 }
 
+// function to save user search details into local storage
 var saveFunction = function (data) {
     localStorage.setItem("savedSearches", JSON.stringify(data));
 };
 
+// function to retrieve local storage data
 var loadFunction = function () {
     let retrievedData = localStorage.getItem("savedSearches");
     if (!retrievedData) {
@@ -517,6 +521,7 @@ var loadFunction = function () {
     }
 }
 
+// function to take local storage retrieved data and create a list of the search details that the user previously provided
 var previousSearches = function (searches) {
     let searchesDiv = document.querySelector(".searchesSection")
 
@@ -527,7 +532,7 @@ var previousSearches = function (searches) {
     previousSearchesTitle.innerHTML = "Previous Searches"
 
     let clearButton = document.createElement("button")
-    clearButton.innerHTML = "Clear Previous Search History"
+    clearButton.innerHTML = "Clear Search History"
     clearButton.setAttribute("class", "mb-3")
     clearButton.addEventListener("click", clearData)
     searchesDiv.prepend(clearButton)
@@ -535,7 +540,6 @@ var previousSearches = function (searches) {
 
     createSearchHistory(searches)
 }
-
 let createSearchHistory = function (searches) {
     let previousSearchSection = document.querySelector(".previousSearches")
 
@@ -563,6 +567,7 @@ let createSearchHistory = function (searches) {
     }
 }
 
+// function to clear the local storage data and refresh the page
 let clearData = function () {
     localStorage.clear()
     window.location.reload();

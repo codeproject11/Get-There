@@ -25,12 +25,38 @@
   ;
   width: 400px;
 
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  background-image: url(https://images.unsplash.com/photo-1442606383395-175ee96ed967?q=80&fm=jpg&s=5c8c74be9bc91b47c79a1aaf92264be5);
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  height: 15vh;
+  align-items: center;
+}
+
+.title-is-2 {
+  font-size: 70px;
+  color: white;
+}
+
+.form {
+  padding: 20px;
+}
+
+.hotel-img {
+  height: 200px;
+  width: 400px;
 }
 
 .flight-child {
   border-radius: 15px;
   margin: 15px 0;
-  color: white;
+  color: whitesmoke;
 }
 
 .flights button {
@@ -44,7 +70,7 @@
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  padding: 0
+  padding: 0;
 }
 
 header h1 {
@@ -60,4 +86,21 @@ nav ul li a {
 .weather-icons{
   background: linear-gradient(90deg, rgba(50,170,247,1) 0%, rgba(14,130,209,1) 35%, rgba(0,212,255,1) 75%);
   border-radius: 25px;
+}
+a {
+  color: whitesmoke;
+}
+
+.button {
+  background-color: #ff3400;
+  text-decoration: solid;
+  color: white;
+  font-size: 15px;
+  font-weight: 50px;
+  margin: 1rem 0;
+  outline: 0;
+  padding: 2rem 4vw;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
 }

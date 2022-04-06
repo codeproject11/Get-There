@@ -312,13 +312,14 @@ var displayHotels = function (hotels) {
         hotelInfoDivEl.setAttribute("id", "hotel" + i);
 
         var hotelHeadEl = document.createElement("p");
-        hotelHeadEl.className = "title is-size-5";
+        hotelHeadEl.className = "title is-size-4";
         hotelHeadEl.textContent = hotels[i].name;
 
         var hotelPriceEl = document.createElement("p");
+        hotelPriceEl.className = "title is-size-5";
 
         if (hotels[i].ratePlan) {
-            hotelPriceEl.textContent = hotels[i].ratePlan.price.current;
+            hotelPriceEl.textContent = hotels[i].ratePlan.price.current + "/Night";
         } else {
             hotelPriceEl.textContent = "Pricing Unavailable"
         }
@@ -378,10 +379,15 @@ var displayHotelDetails = function (event) {
     var selectedInfo = document.querySelector("div[id='" + idNeeded + "'")
     var hotelSelected = event.currentTarget.myParam;
 
-
+    if(hotelSelected.address.streetAddress) {
+        var hotelAddress = hotelSelected.address.streetAddress;
+    } else {
+        var hotelAddress = "Address Not Listed";
+    }
+    
 
     var hotelInfoArr = [
-        "Address: " + hotelSelected.address.streetAddress,
+        "Address: " + hotelAddress,
         "Star Rating: " + hotelSelected.starRating,
         "Neighbourhood: " + hotelSelected.neighbourhood
     ]

@@ -111,8 +111,25 @@ a {
 }
 
 #ui-datepicker-div {
-  background-color: lightblue;
+  background-color: rgb(86, 173, 205);
   width: 300px;
+  padding: 5px;
+}
+
+#ui-datepicker-div table {
+  width: 300px;
+  padding: 5px;
+}
+
+.ui-datepicker-header {
+  text-align: center;
+  font-size: 20px;
+}
+
+.ui-datepicker-header a {
+  text-align: center;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .hotel-card {

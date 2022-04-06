@@ -69,9 +69,9 @@ var storeInput = function (event) {
             returningDate: returnDate
         }
         console.log(userInput)
-        // getCity(userInput.destination);
+        getCity(userInput.destination);
         flights(userInput.departingAirport, userInput.arrivingAirport, userInput.passengersTotal, userInput.destination, userInput.departingDate);
-        // getCityId(userInput.destination);
+        getCityId(userInput.destination);
         searches.push(userInput)
         saveFunction(searches)
     } else {
@@ -399,12 +399,12 @@ var displayHotelDetails = function (event) {
     var selectedInfo = document.querySelector("div[id='" + idNeeded + "'")
     var hotelSelected = event.currentTarget.myParam;
 
-    if(hotelSelected.address.streetAddress) {
+    if (hotelSelected.address.streetAddress) {
         var hotelAddress = hotelSelected.address.streetAddress;
     } else {
         var hotelAddress = "Address Not Listed";
     }
-    
+
 
     var hotelInfoArr = [
         "Address: " + hotelAddress,

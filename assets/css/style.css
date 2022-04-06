@@ -54,7 +54,8 @@ header {
 
 .hotel-img {
   height: 200px;
-  width: 400px;
+  width: 300px;
+  z-index: 0;
 }
 
 .flight-child {
@@ -116,3 +117,25 @@ a {
   display: none;
 }
 
+#ui-datepicker-div {
+  background-color: #3e8ed0;
+  width: 300px;
+  padding: 5px;
+  border: 2px black solid;
+}
+
+#ui-datepicker-div table {
+  width: 300px;
+  padding: 5px;
+}
+
+.ui-datepicker-header {
+  text-align: center;
+  font-size: 20px;
+}
+
+.ui-datepicker-header a {
+  text-align: center;
+  padding-left: 10px;
+  padding-right: 10px;
+}

@@ -14,6 +14,21 @@ let forecastDays = [
 ];
 let weatherCityName = document.querySelector(".weatherCityName");
 var searches = [];
+var contactModal = document.querySelector(".modal")
+var contactButton = document.querySelector("#contact")
+
+$(function () {
+    $("#departingDate").datepicker({
+        dateFormat: "yy-mm-dd",
+        minDate: 0
+    });
+});
+$(function () {
+    $("#returningDate").datepicker({
+        dateFormat: "yy-mm-dd",
+        minDate: 0
+    });
+});
 
 
 // api details for hotel api
@@ -35,21 +50,31 @@ var storeInput = function (event) {
     var currentAirport = document.querySelector("#currentAirport").value;
     var destinationAirport = document.querySelector("#destinationAirport").value;
     var passengers = document.querySelector("#passengerInput").value;
+    var departDate = document.querySelector("#departingDate").value;
+    var returnDate = document.querySelector("#returningDate").value;
     inputButton.classList.add("is-loading");
+    console.log(departDate)
+    console.log(returnDate)
 
-    if (destinationCity && destinationAirport && currentAirport && passengers) {
+
+    if (destinationCity && destinationAirport && currentAirport && passengers && departDate && returnDate) {
         document.querySelector("input[id='destination']").value = '';
         document.querySelector("input[id='destinationAirport']").value = "";
         document.querySelector("input[id='currentAirport']").value = "";
         document.querySelector("input[id='passengerInput']").value = "";
+        document.querySelector("input[id='departingDate']").value = "";
+        document.querySelector("input[id='returningDate']").value = "";
         let userInput = {
             destination: destinationCity,
             departingAirport: currentAirport,
             arrivingAirport: destinationAirport,
-            passengersTotal: passengers
+            passengersTotal: passengers,
+            departingDate: departDate,
+            returningDate: returnDate
         }
+        console.log(userInput)
         getCity(userInput.destination);
-        flights(userInput.departingAirport, userInput.arrivingAirport, userInput.passengersTotal, userInput.destination);
+        flights(userInput.departingAirport, userInput.arrivingAirport, userInput.passengersTotal, userInput.destination, userInput.departingDate);
         getCityId(userInput.destination);
         searches.push(userInput)
         saveFunction(searches)
@@ -249,7 +274,6 @@ var getCityId = function (input) {
                     .then(function (data) {
                         if (data.moresuggestions !== 0) {
                             var destId = data.suggestions[0].entities[0].destinationId;
-                            console.log(destId);
                             getHotels(destId);
                         } else {
                             alert('Enter a valid city name');
@@ -273,7 +297,6 @@ var getHotels = function (destId) {
             if (response.ok) {
                 response.json()
                     .then(function (data) {
-                        console.log(data.data.body)
                         displayHotels(data.data.body.searchResults.results);
                     })
             } else {
@@ -305,20 +328,20 @@ var displayHotels = function (hotels) {
         hotelImgDivEl.className = "card-image has-text-centered px-6";
         getHotelPhoto(hotels[i].id, hotelImgDivEl);
 
-
         // create div for hotel name and price
         var hotelInfoDivEl = document.createElement("div");
         hotelInfoDivEl.className = "card-content";
         hotelInfoDivEl.setAttribute("id", "hotel" + i);
 
         var hotelHeadEl = document.createElement("p");
-        hotelHeadEl.className = "title is-size-5";
+        hotelHeadEl.className = "title is-size-4";
         hotelHeadEl.textContent = hotels[i].name;
 
         var hotelPriceEl = document.createElement("p");
+        hotelPriceEl.className = "title is-size-5";
 
         if (hotels[i].ratePlan) {
-            hotelPriceEl.textContent = hotels[i].ratePlan.price.current;
+            hotelPriceEl.textContent = hotels[i].ratePlan.price.current + "/Night";
         } else {
             hotelPriceEl.textContent = "Pricing Unavailable"
         }
@@ -374,14 +397,18 @@ var displayHotelPhoto = function (hotelImgUrl, selectedDiv) {
 
 var displayHotelDetails = function (event) {
     var idNeeded = event.target.getAttribute("id");
-    console.log(idNeeded);
     var selectedInfo = document.querySelector("div[id='" + idNeeded + "'")
     var hotelSelected = event.currentTarget.myParam;
 
+    if (hotelSelected.address.streetAddress) {
+        var hotelAddress = hotelSelected.address.streetAddress;
+    } else {
+        var hotelAddress = "Address Not Listed";
+    }
 
 
     var hotelInfoArr = [
-        "Address: " + hotelSelected.address.streetAddress,
+        "Address: " + hotelAddress,
         "Star Rating: " + hotelSelected.starRating,
         "Neighbourhood: " + hotelSelected.neighbourhood
     ]
@@ -422,12 +449,12 @@ const flightFunctionInfo = {
     method: 'GET',
     headers: {
         'X-RapidAPI-Host': 'flight-fare-search.p.rapidapi.com',
-        // 'X-RapidAPI-Key': '4095781a70mshead3ea36f5198b9p145325jsn70b930dd6ab8'
-        'X-RapidAPI-Key': 'e84a340de7mshbca181db5c6c926p1594a3jsna0142e0ad055'
+        'X-RapidAPI-Key': '4095781a70mshead3ea36f5198b9p145325jsn70b930dd6ab8'
+        // 'X-RapidAPI-Key': 'e84a340de7mshbca181db5c6c926p1594a3jsna0142e0ad055'
     }
 };
-var flights = function (currentAirport, destinationAirport, passengers, destinationCity) {
-    fetch("https://flight-fare-search.p.rapidapi.com/v2/flight/?from=" + currentAirport + "&to=" + destinationAirport + "&date=2022-04-06&adult=" + passengers + "&type=economy&currency=USD", flightFunctionInfo)
+var flights = function (currentAirport, destinationAirport, passengers, destinationCity, departDate) {
+    fetch("https://flight-fare-search.p.rapidapi.com/v2/flight/?from=" + currentAirport + "&to=" + destinationAirport + "&date=" + departDate + "&adult=" + passengers + "&type=economy&currency=USD", flightFunctionInfo)
         .then(function (res) {
             if (res.ok) {
                 res.json().then(function (data) {
@@ -555,11 +582,17 @@ let createSearchHistory = function (searches) {
         searchArrivingAirport.innerHTML = `Arriving Airport: ${searches[i].arrivingAirport}`
         let searchPassengers = document.createElement("li")
         searchPassengers.innerHTML = `Number of Passengers: ${searches[i].passengersTotal}`
+        let departDate = document.createElement("li")
+        departDate.innerHTML = `Departing Date: ${searches[i].departingDate}`
+        let returnDate = document.createElement("li")
+        returnDate.innerHTML = `Return Date: ${searches[i].returningDate}`
 
         searchDetails.appendChild(searchDestination)
         searchDetails.appendChild(searchDepartingAirport)
         searchDetails.appendChild(searchArrivingAirport)
         searchDetails.appendChild(searchPassengers)
+        searchDetails.appendChild(departDate)
+        searchDetails.appendChild(returnDate)
 
         userSearch.appendChild(searchDetails)
 
@@ -573,8 +606,19 @@ let clearData = function () {
     window.location.reload();
 }
 
+// function to make modal Active
+var modalActive = function () {
+    contactModal.classList.add("is-active")
+}
+
 
 // add event listener to form
 inputButton.addEventListener("click", storeInput);
 loadFunction()
 
+// eventListener to make modal active
+contactButton.addEventListener("click", modalActive);
+let modalBackground = document.querySelector(".modal-background")
+modalBackground.addEventListener("click", function () {
+    contactModal.classList.remove("is-active")
+})

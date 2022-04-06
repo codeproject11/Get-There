@@ -15,6 +15,17 @@ let forecastDays = [
 let weatherCityName = document.querySelector(".weatherCityName");
 var searches = [];
 
+$(function () {
+    $("#departingDate").datepicker({
+        dateFormat: "yy-mm-dd"
+    });
+});
+$(function () {
+    $("#returningDate").datepicker({
+        dateFormat: "yy-mm-dd"
+    });
+});
+
 
 // api details for hotel api
 var options = {
@@ -35,21 +46,31 @@ var storeInput = function (event) {
     var currentAirport = document.querySelector("#currentAirport").value;
     var destinationAirport = document.querySelector("#destinationAirport").value;
     var passengers = document.querySelector("#passengerInput").value;
+    var departDate = document.querySelector("#departingDate").value;
+    var returnDate = document.querySelector("#returningDate").value;
     inputButton.classList.add("is-loading");
+    console.log(departDate)
+    console.log(returnDate)
 
-    if (destinationCity && destinationAirport && currentAirport && passengers) {
+
+    if (destinationCity && destinationAirport && currentAirport && passengers && departDate && returnDate) {
         document.querySelector("input[id='destination']").value = '';
         document.querySelector("input[id='destinationAirport']").value = "";
         document.querySelector("input[id='currentAirport']").value = "";
         document.querySelector("input[id='passengerInput']").value = "";
+        document.querySelector("input[id='departingDate']").value = "";
+        document.querySelector("input[id='returningDate']").value = "";
         let userInput = {
             destination: destinationCity,
             departingAirport: currentAirport,
             arrivingAirport: destinationAirport,
-            passengersTotal: passengers
+            passengersTotal: passengers,
+            departingDate: departDate,
+            returningDate: returnDate
         }
+        console.log(userInput)
         getCity(userInput.destination);
-        flights(userInput.departingAirport, userInput.arrivingAirport, userInput.passengersTotal, userInput.destination);
+        flights(userInput.departingAirport, userInput.arrivingAirport, userInput.passengersTotal, userInput.destination, userInput.departingDate);
         getCityId(userInput.destination);
         searches.push(userInput)
         saveFunction(searches)
@@ -424,12 +445,12 @@ const flightFunctionInfo = {
     method: 'GET',
     headers: {
         'X-RapidAPI-Host': 'flight-fare-search.p.rapidapi.com',
-        // 'X-RapidAPI-Key': '4095781a70mshead3ea36f5198b9p145325jsn70b930dd6ab8'
-        'X-RapidAPI-Key': 'e84a340de7mshbca181db5c6c926p1594a3jsna0142e0ad055'
+        'X-RapidAPI-Key': '4095781a70mshead3ea36f5198b9p145325jsn70b930dd6ab8'
+        // 'X-RapidAPI-Key': 'e84a340de7mshbca181db5c6c926p1594a3jsna0142e0ad055'
     }
 };
-var flights = function (currentAirport, destinationAirport, passengers, destinationCity) {
-    fetch("https://flight-fare-search.p.rapidapi.com/v2/flight/?from=" + currentAirport + "&to=" + destinationAirport + "&date=2022-04-06&adult=" + passengers + "&type=economy&currency=USD", flightFunctionInfo)
+var flights = function (currentAirport, destinationAirport, passengers, destinationCity, departDate) {
+    fetch("https://flight-fare-search.p.rapidapi.com/v2/flight/?from=" + currentAirport + "&to=" + destinationAirport + "&date=" + departDate + "&adult=" + passengers + "&type=economy&currency=USD", flightFunctionInfo)
         .then(function (res) {
             if (res.ok) {
                 res.json().then(function (data) {
@@ -557,11 +578,17 @@ let createSearchHistory = function (searches) {
         searchArrivingAirport.innerHTML = `Arriving Airport: ${searches[i].arrivingAirport}`
         let searchPassengers = document.createElement("li")
         searchPassengers.innerHTML = `Number of Passengers: ${searches[i].passengersTotal}`
+        let departDate = document.createElement("li")
+        departDate.innerHTML = `Departing Date: ${searches[i].departingDate}`
+        let returnDate = document.createElement("li")
+        returnDate.innerHTML = `Return Date: ${searches[i].returningDate}`
 
         searchDetails.appendChild(searchDestination)
         searchDetails.appendChild(searchDepartingAirport)
         searchDetails.appendChild(searchArrivingAirport)
         searchDetails.appendChild(searchPassengers)
+        searchDetails.appendChild(departDate)
+        searchDetails.appendChild(returnDate)
 
         userSearch.appendChild(searchDetails)
 

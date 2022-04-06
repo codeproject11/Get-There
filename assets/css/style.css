@@ -109,3 +109,8 @@ a {
 .hidden {
   display: none;
 }
+
+#ui-datepicker-div {
+  background-color: lightblue;
+  width: 300px;
+}

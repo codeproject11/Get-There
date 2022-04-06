@@ -15,6 +15,12 @@ let forecastDays = [
 let weatherCityName = document.querySelector(".weatherCityName");
 var searches = [];
 
+$(function () {
+    $("#datePicker").datepicker({
+        dateFormat: "yy-mm-dd"
+    });
+});
+
 
 // api details for hotel api
 var options = {
@@ -35,22 +41,25 @@ var storeInput = function (event) {
     var currentAirport = document.querySelector("#currentAirport").value;
     var destinationAirport = document.querySelector("#destinationAirport").value;
     var passengers = document.querySelector("#passengerInput").value;
+    var tripDate = document.querySelector("#datePicker").value;
     inputButton.classList.add("is-loading");
+    console.log(tripDate)
 
-    if (destinationCity && destinationAirport && currentAirport && passengers) {
+    if (destinationCity && destinationAirport && currentAirport && passengers && tripDate) {
         document.querySelector("input[id='destination']").value = '';
         document.querySelector("input[id='destinationAirport']").value = "";
         document.querySelector("input[id='currentAirport']").value = "";
         document.querySelector("input[id='passengerInput']").value = "";
+        document.querySelector("input[id='datePicker']").value = "";
         let userInput = {
             destination: destinationCity,
             departingAirport: currentAirport,
             arrivingAirport: destinationAirport,
             passengersTotal: passengers
         }
-        getCity(userInput.destination);
-        flights(userInput.departingAirport, userInput.arrivingAirport, userInput.passengersTotal, userInput.destination);
-        getCityId(userInput.destination);
+        // getCity(userInput.destination);
+        // flights(userInput.departingAirport, userInput.arrivingAirport, userInput.passengersTotal, userInput.destination);
+        // getCityId(userInput.destination);
         searches.push(userInput)
         saveFunction(searches)
     } else {

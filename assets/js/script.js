@@ -14,6 +14,8 @@ let forecastDays = [
 ];
 let weatherCityName = document.querySelector(".weatherCityName");
 var searches = [];
+var contactModal = document.querySelector(".modal")
+var contactButton = document.querySelector("#contact")
 
 $(function () {
     $("#departingDate").datepicker({
@@ -602,8 +604,19 @@ let clearData = function () {
     window.location.reload();
 }
 
+// function to make modal Active
+var modalActive = function () {
+    contactModal.classList.add("is-active")
+}
+
 
 // add event listener to form
 inputButton.addEventListener("click", storeInput);
 loadFunction()
 
+// eventListener to make modal active
+contactButton.addEventListener("click", modalActive);
+let modalBackground = document.querySelector(".modal-background")
+modalBackground.addEventListener("click", function () {
+    contactModal.classList.remove("is-active")
+})

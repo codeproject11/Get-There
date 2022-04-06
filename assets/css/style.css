@@ -40,7 +40,7 @@ nav ul li a {
   height: 100px;
   max-width: 15%;
   padding: 0;
-  width: 100px;  
+  width: 100px;
   border: 1px solid white;
 }
 
@@ -85,7 +85,7 @@ nav ul li a {
   border-radius: 15px;
   color: whitesmoke;
   margin: 15px 0;
-  
+
 }
 
 .flights button {
@@ -143,4 +143,12 @@ a {
   padding-left: 10px;
   padding-right: 10px;
   text-align: center;
+}
+
+.searchBorder {
+  border: 1px solid black;
+  background-color: #3e8ed0;
+  border-radius: 10px;
+  margin-top: 5px;
+  color: white;
 }

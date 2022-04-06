@@ -20,13 +20,13 @@ var contactButton = document.querySelector("#contact")
 $(function () {
     $("#departingDate").datepicker({
         dateFormat: "yy-mm-dd",
-        minDate: 0
+        minDate: 1
     });
 });
 $(function () {
     $("#returningDate").datepicker({
         dateFormat: "yy-mm-dd",
-        minDate: 0
+        minDate: 1
     });
 });
 
@@ -73,9 +73,9 @@ var storeInput = function (event) {
             returningDate: returnDate
         }
         console.log(userInput)
-        getCity(userInput.destination);
-        flights(userInput.departingAirport, userInput.arrivingAirport, userInput.passengersTotal, userInput.destination, userInput.departingDate);
-        getCityId(userInput.destination);
+        // getCity(userInput.destination);
+        // flights(userInput.departingAirport, userInput.arrivingAirport, userInput.passengersTotal, userInput.destination, userInput.departingDate);
+        // getCityId(userInput.destination);
         searches.push(userInput)
         saveFunction(searches)
     } else {
@@ -449,8 +449,8 @@ const flightFunctionInfo = {
     method: 'GET',
     headers: {
         'X-RapidAPI-Host': 'flight-fare-search.p.rapidapi.com',
-        'X-RapidAPI-Key': '4095781a70mshead3ea36f5198b9p145325jsn70b930dd6ab8'
-        // 'X-RapidAPI-Key': 'e84a340de7mshbca181db5c6c926p1594a3jsna0142e0ad055'
+        // 'X-RapidAPI-Key': '4095781a70mshead3ea36f5198b9p145325jsn70b930dd6ab8'
+        'X-RapidAPI-Key': 'e84a340de7mshbca181db5c6c926p1594a3jsna0142e0ad055'
     }
 };
 var flights = function (currentAirport, destinationAirport, passengers, destinationCity, departDate) {
@@ -555,12 +555,12 @@ var previousSearches = function (searches) {
 
 
     let previousSearchesTitle = document.createElement("h3")
-    previousSearchesTitle.setAttribute("class", "title")
+    previousSearchesTitle.setAttribute("class", "title mb-0")
     previousSearchesTitle.innerHTML = "Previous Searches"
 
     let clearButton = document.createElement("button")
     clearButton.innerHTML = "Clear Search History"
-    clearButton.setAttribute("class", "mb-3")
+    clearButton.setAttribute("class", "button is-primary mb-3 p-1")
     clearButton.addEventListener("click", clearData)
     searchesDiv.prepend(clearButton)
     searchesDiv.prepend(previousSearchesTitle)
@@ -572,20 +572,20 @@ let createSearchHistory = function (searches) {
 
     for (let i = 0; i < searches.length; i++) {
         let userSearch = document.createElement("div")
-        userSearch.setAttribute("class", "column")
+        userSearch.setAttribute("class", "column searchBorder")
         let searchDetails = document.createElement("ul")
         let searchDestination = document.createElement("li")
-        searchDestination.innerHTML = `Destination City: ${searches[i].destination}`
+        searchDestination.innerHTML = `<b>Destination City:</b> ${searches[i].destination}`
         let searchDepartingAirport = document.createElement("li")
-        searchDepartingAirport.innerHTML = `Departing Airport: ${searches[i].departingAirport}`
+        searchDepartingAirport.innerHTML = `<b>Departing Airport:</b> ${searches[i].departingAirport}`
         let searchArrivingAirport = document.createElement("li")
-        searchArrivingAirport.innerHTML = `Arriving Airport: ${searches[i].arrivingAirport}`
+        searchArrivingAirport.innerHTML = `<b>Arriving Airport:</b> ${searches[i].arrivingAirport}`
         let searchPassengers = document.createElement("li")
-        searchPassengers.innerHTML = `Number of Passengers: ${searches[i].passengersTotal}`
+        searchPassengers.innerHTML = `<b>Number of Passengers:</b> ${searches[i].passengersTotal}`
         let departDate = document.createElement("li")
-        departDate.innerHTML = `Departing Date: ${searches[i].departingDate}`
+        departDate.innerHTML = `<b>Departing Date:</b> ${searches[i].departingDate}`
         let returnDate = document.createElement("li")
-        returnDate.innerHTML = `Return Date: ${searches[i].returningDate}`
+        returnDate.innerHTML = `<b>Return Date:</b> ${searches[i].returningDate}`
 
         searchDetails.appendChild(searchDestination)
         searchDetails.appendChild(searchDepartingAirport)

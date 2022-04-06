@@ -4,7 +4,7 @@
   padding: 0;
 }
 
-.header {
+header {
   padding: 10px 0;
   display: flex;
   justify-content: space-between;
@@ -12,8 +12,9 @@
   position: -webkit-sticky;
   position: sticky;
   top: 0;
-  z-index: 9999;
   background-color: white;
+  background-size: cover;
+  z-index: 9999;
 }
 
 .form {
@@ -22,15 +23,40 @@
 
 .hotel-img {
   height: 200px;
-  ;
   width: 400px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 0;
+  background-image: url(https://images.unsplash.com/photo-1442606383395-175ee96ed967?q=80&fm=jpg&s=5c8c74be9bc91b47c79a1aaf92264be5);
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  height: 15vh;
+  align-items: center;
+}
 
+.title-is-2 {
+  font-size: 70px;
+  color: white;
+}
+
+.form {
+  padding: 20px;
+}
+
+.hotel-img {
+  height: 200px;
+  width: 400px;
+  z-index: 0;
 }
 
 .flight-child {
   border-radius: 15px;
   margin: 15px 0;
-  color: white;
+  color: whitesmoke;
 }
 
 .flights button {
@@ -44,7 +70,7 @@
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  padding: 0
+  padding: 0;
 }
 
 header h1 {
@@ -62,6 +88,24 @@ nav ul li a {
   border-radius: 25px;
 }
 
+a {
+  color: whitesmoke;
+}
+
+.button {
+  background-color: #ff3400;
+  text-decoration: solid;
+  color: white;
+  font-size: 15px;
+  font-weight: 50px;
+  margin: 1rem 0;
+  outline: 0;
+  padding: 2rem 4vw;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
 .hidden {
   display: none;
 }
@@ -69,4 +113,8 @@ nav ul li a {
 #ui-datepicker-div {
   background-color: lightblue;
   width: 300px;
+}
+
+.hotel-card {
+  height: 100%;
 }

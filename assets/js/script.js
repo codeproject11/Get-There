@@ -305,7 +305,6 @@ var displayHotels = function (hotels) {
         hotelImgDivEl.className = "card-image has-text-centered px-6";
         getHotelPhoto(hotels[i].id, hotelImgDivEl);
 
-
         // create div for hotel name and price
         var hotelInfoDivEl = document.createElement("div");
         hotelInfoDivEl.className = "card-content";

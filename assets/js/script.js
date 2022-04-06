@@ -249,7 +249,6 @@ var getCityId = function (input) {
                     .then(function (data) {
                         if (data.moresuggestions !== 0) {
                             var destId = data.suggestions[0].entities[0].destinationId;
-                            console.log(destId);
                             getHotels(destId);
                         } else {
                             alert('Enter a valid city name');
@@ -273,7 +272,6 @@ var getHotels = function (destId) {
             if (response.ok) {
                 response.json()
                     .then(function (data) {
-                        console.log(data.data.body)
                         displayHotels(data.data.body.searchResults.results);
                     })
             } else {
@@ -374,7 +372,6 @@ var displayHotelPhoto = function (hotelImgUrl, selectedDiv) {
 
 var displayHotelDetails = function (event) {
     var idNeeded = event.target.getAttribute("id");
-    console.log(idNeeded);
     var selectedInfo = document.querySelector("div[id='" + idNeeded + "'")
     var hotelSelected = event.currentTarget.myParam;
 

@@ -19,12 +19,14 @@ var contactButton = document.querySelector("#contact")
 
 $(function () {
     $("#departingDate").datepicker({
-        dateFormat: "yy-mm-dd"
+        dateFormat: "yy-mm-dd",
+        minDate: 0
     });
 });
 $(function () {
     $("#returningDate").datepicker({
-        dateFormat: "yy-mm-dd"
+        dateFormat: "yy-mm-dd",
+        minDate: 0
     });
 });
 

@@ -111,9 +111,10 @@ a {
 }
 
 #ui-datepicker-div {
-  background-color: rgb(86, 173, 205);
+  background-color: #3e8ed0;
   width: 300px;
   padding: 5px;
+  border: 2px black solid;
 }
 
 #ui-datepicker-div table {

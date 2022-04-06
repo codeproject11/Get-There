@@ -396,12 +396,12 @@ var displayHotelDetails = function (event) {
     var selectedInfo = document.querySelector("div[id='" + idNeeded + "'")
     var hotelSelected = event.currentTarget.myParam;
 
-    if(hotelSelected.address.streetAddress) {
+    if (hotelSelected.address.streetAddress) {
         var hotelAddress = hotelSelected.address.streetAddress;
     } else {
         var hotelAddress = "Address Not Listed";
     }
-    
+
 
     var hotelInfoArr = [
         "Address: " + hotelAddress,

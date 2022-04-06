@@ -50,6 +50,7 @@ header {
 .hotel-img {
   height: 200px;
   width: 400px;
+  z-index: 0;
 }
 
 .flight-child {
@@ -107,4 +108,8 @@ a {
 
 .hidden {
   display: none;
+}
+
+.hotel-card {
+  height: 100%;
 }

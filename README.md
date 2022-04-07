@@ -10,7 +10,7 @@ GetThere™ is an application that acts as a facilitator to help you plan your t
 
 When a user enters their travelling details, Get There shows the user options for plane tickets, hotel costs, restaurants in the destination area, as well as the weather that can be expected. It does this all with the guarantee that no personal information is used for monetary purposes.
 
-[Live Deployment](#)
+[Live Deployment](https://codeproject11.github.io/Get-There/)
 
 [Github Repository](https://github.com/codeproject11/Get-There)
 

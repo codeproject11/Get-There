@@ -34,9 +34,9 @@
     <!-- INPUT FORM WITH SUBMIT BUTTON -->
 
     <!-- Hero Section & form -->
-    <section class="columns my-3 py-4">
+    <section class="columns my-3 py-4 hero-background">
       <div class="column is-half">
-        <form class="form">
+        <form class="form form-background">
           <!-- <div class="field has-addons">
             <p class="control">
               <button class="button">
@@ -65,21 +65,21 @@
           </div> -->
 
           <div class="field">
-            <label class="label">Departing Airport</label>
+            <label class="label has-text-white">Departing Airport</label>
             <div class="control">
               <input class="input" type="text" placeholder="YYZ" id="currentAirport">
             </div>
           </div>
 
           <div class="field">
-            <label class="label">Arriving Airport</label>
+            <label class="label has-text-white">Arriving Airport</label>
             <div class="control">
               <input class="input" type="text" placeholder="YVR" id="destinationAirport">
             </div>
           </div>
 
           <div class="field">
-            <label class="label">Destination City</label>
+            <label class="label has-text-white">Destination City</label>
             <div class="control">
               <input class="input" type="text" placeholder="Vancouver" id="destination">
             </div>
@@ -87,7 +87,7 @@
 
           <div>
             <div class="field">
-              <label class="label">Departing Date</label>
+              <label class="label has-text-white">Departing Date</label>
               <div class="control">
                 <input id="departingDate" class="input" type="text" placeholder="Text input">
               </div>
@@ -96,7 +96,7 @@
 
           <div>
             <div class="field">
-              <label class="label">Returning Date</label>
+              <label class="label has-text-white">Returning Date</label>
               <div class="control">
                 <input id="returningDate" class="input" type="text" placeholder="Text input">
               </div>
@@ -104,7 +104,7 @@
           </div>
 
           <div class="field">
-            <label class="label">Passengers</label>
+            <label class="label has-text-white">Passengers</label>
             <div class="control">
               <input class="input" type="text" placeholder="Text input" id="passengerInput">
             </div>
@@ -112,19 +112,18 @@
 
           <button class="button is-success" id="search">GET THERE!</button>
         </form>
-
       </div>
-      </div>
-      </div>
-      <div class="column is-half vacayview">
-        <h3 class="title is-3 has-text-centered">We Get You There</h3>
-        <img class="hero-img" src="assets/images/s-migaj-Yui5vfKHuzs-unsplash.jpg" alt="Vacation-View">
+      
+      <div class="column is-half vacayview hero-text">
+        <h3 class="title is-2 has-text-centered has-text-white">We Get You There</h3>
+        <!-- <img class="hero-img" src="assets/images/s-migaj-Yui5vfKHuzs-unsplash.jpg" alt="Vacation-View"> -->
         <div>
-          <p class="px-5">We want to help your travel experience light and easy. You can think of us as your one stop
+          <p class="px-5 has-text-white has-text-weight-bold">We want to help your travel experience light and easy. You can think of us as your one stop
             shop
             for all of your travel essentials! Simply fill out our intuitive form and we well send you on your way!
           </p>
         </div>
+      </div>
     </section>
 
     <!-- API for hotels?-->

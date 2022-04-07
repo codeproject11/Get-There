@@ -45,7 +45,7 @@ header h1 {
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-.hero-background{
+.hero-background {
   background-image: url("../images/hero-img.jpeg");
   background-size: cover;
   background-position: center;
@@ -64,7 +64,8 @@ header h1 {
   background-color: rgba(151, 145, 148, 0.41);
   border-radius: 25px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  ;
 }
 
 nav ul li a {
@@ -195,6 +196,12 @@ a {
   border-radius: 10px;
   margin-top: 5px;
   color: white;
+  padding: 10px;
+  margin-right: 10px;
+}
+
+.modal {
+  z-index: 9999;
 }
 
 /* MEDIA QUERY FOR TABLETS AND SMALLER */
@@ -204,7 +211,7 @@ a {
     flex-wrap: wrap;
     flex-direction: row;
   }
-  
+
   .logo {
     height: 75px;
     width: 75px;

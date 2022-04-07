@@ -87,7 +87,7 @@ var storeInput = function (event) {
 
 // function to use user inputted destination city and current city and generate data from API
 var getCity = function (destinationCity) {
-    var destinationCityAPIURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + destinationCity + "&limit=1&appid=f9dcdf6690d0d22c5198371e258e8bb2";
+    var destinationCityAPIURL = "https://api.openweathermap.org/geo/1.0/direct?q=" + destinationCity + "&limit=1&appid=f9dcdf6690d0d22c5198371e258e8bb2";
     fetch(destinationCityAPIURL)
         .then(function (res) {
             if (res.ok) {
@@ -449,8 +449,8 @@ const flightFunctionInfo = {
     method: 'GET',
     headers: {
         'X-RapidAPI-Host': 'flight-fare-search.p.rapidapi.com',
-        'X-RapidAPI-Key': '4095781a70mshead3ea36f5198b9p145325jsn70b930dd6ab8'
-        // 'X-RapidAPI-Key': 'e84a340de7mshbca181db5c6c926p1594a3jsna0142e0ad055'
+        // 'X-RapidAPI-Key': '4095781a70mshead3ea36f5198b9p145325jsn70b930dd6ab8'
+        'X-RapidAPI-Key': 'e84a340de7mshbca181db5c6c926p1594a3jsna0142e0ad055'
     }
 };
 var flights = function (currentAirport, destinationAirport, passengers, destinationCity, departDate) {

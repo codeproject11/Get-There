@@ -84,7 +84,7 @@ Fares Akhtar
 
 Joey Cosentino
 - [Email](joeycosentino24@gmail.com)
-- [GitHub](#)
+- [GitHub](https://github.com/JoeCosentino)
 
 Satvir Shergill
 - [Email](s.shergill1@outlook.com)

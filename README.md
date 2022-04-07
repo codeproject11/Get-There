@@ -28,7 +28,7 @@ SO THAT I can peacefully choose the PLACE I WOULD LIKE TO VISIT NEXT
 ## Screenshots
 --------------
 
-<img src="assets/images/READMELogo.png" width="250">
+<img src="assets/images/screenshot.png" width="600">
 
 
 ## Tech Stack

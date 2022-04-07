@@ -73,9 +73,9 @@ var storeInput = function (event) {
             returningDate: returnDate
         }
         console.log(userInput)
-        // getCity(userInput.destination);
-        // flights(userInput.departingAirport, userInput.arrivingAirport, userInput.passengersTotal, userInput.destination, userInput.departingDate);
-        // getCityId(userInput.destination);
+        getCity(userInput.destination);
+        flights(userInput.departingAirport, userInput.arrivingAirport, userInput.passengersTotal, userInput.destination, userInput.departingDate);
+        getCityId(userInput.destination);
         searches.push(userInput)
         saveFunction(searches)
     } else {
@@ -449,8 +449,8 @@ const flightFunctionInfo = {
     method: 'GET',
     headers: {
         'X-RapidAPI-Host': 'flight-fare-search.p.rapidapi.com',
-        // 'X-RapidAPI-Key': '4095781a70mshead3ea36f5198b9p145325jsn70b930dd6ab8'
-        'X-RapidAPI-Key': 'e84a340de7mshbca181db5c6c926p1594a3jsna0142e0ad055'
+        'X-RapidAPI-Key': '4095781a70mshead3ea36f5198b9p145325jsn70b930dd6ab8'
+        // 'X-RapidAPI-Key': 'e84a340de7mshbca181db5c6c926p1594a3jsna0142e0ad055'
     }
 };
 var flights = function (currentAirport, destinationAirport, passengers, destinationCity, departDate) {
@@ -572,7 +572,7 @@ let createSearchHistory = function (searches) {
 
     for (let i = 0; i < searches.length; i++) {
         let userSearch = document.createElement("div")
-        userSearch.setAttribute("class", "column searchBorder")
+        userSearch.setAttribute("class", "searchBorder")
         let searchDetails = document.createElement("ul")
         let searchDestination = document.createElement("li")
         searchDestination.innerHTML = `<b>Destination City:</b> ${searches[i].destination}`

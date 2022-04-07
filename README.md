@@ -80,7 +80,7 @@ Charanvir Singh
 
 Fares Akhtar
 - [Email](akhtar.fares@gmail.com)
-- [GitHub](#)
+- [GitHub](https://github.com/fares3356)
 
 Joey Cosentino
 - [Email](joeycosentino24@gmail.com)

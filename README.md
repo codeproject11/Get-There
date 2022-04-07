@@ -28,7 +28,7 @@ SO THAT I can peacefully choose the PLACE I WOULD LIKE TO VISIT NEXT
 ## Screenshots
 --------------
 
-<img src="assets/images/screenshot.png" width="600">
+![image](./assets/images/get-there-screenshot.PNG)
 
 
 ## Tech Stack
@@ -71,23 +71,23 @@ SO THAT I can peacefully choose the PLACE I WOULD LIKE TO VISIT NEXT
 ----------
 
 Taimur Hasan
-- [Email](taimurhasan11@gmail.com)
+- [Email](mailto:taimurhasan11@gmail.com)
 - [GitHub](#)
 
 Charanvir Singh
-- [Email](charanvir123@gmail.com)
+- [Email](mailto:charanvir123@gmail.com)
 - [GitHub](https://github.com/Charanvir)
 
 Fares Akhtar
-- [Email](akhtar.fares@gmail.com)
+- [Email](mailto:akhtar.fares@gmail.com)
 - [GitHub](https://github.com/fares3356)
 
 Joey Cosentino
-- [Email](joeycosentino24@gmail.com)
+- [Email](mailto:joeycosentino24@gmail.com)
 - [GitHub](https://github.com/JoeCosentino)
 
 Satvir Shergill
-- [Email](s.shergill1@outlook.com)
+- [Email](mailto:s.shergill1@outlook.com)
 - [GitHub](#)
 
 

@@ -372,7 +372,17 @@ a {
 
 /* Footer end /*
 
-/* RESPONSIVE DESIGN */
+/* RESPONSIVE */
+@media screen and (max-width: 768px) {
+  footer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+  }
+}
 
 /* MEDIA QUERY FOR TABLETS AND SMALLER */
 @media screen and (max-width: 575px) {
@@ -380,6 +390,7 @@ a {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+    height: 200px;
   }
 
   .logo {

@@ -75,7 +75,7 @@ var storeInput = function (event) {
         console.log(userInput)
         getCity(userInput.destination);
         flights(userInput.departingAirport, userInput.arrivingAirport, userInput.passengersTotal, userInput.destination, userInput.departingDate);
-        getCityId(userInput.destination);
+        getCityId(userInput.destination, userInput.passengersTotal, userInput.departingDate, userInput.returningDate);
         searches.push(userInput)
         saveFunction(searches)
     } else {
@@ -266,7 +266,7 @@ var insertLink = function (data, footerLink) {
 }
 
 // // uses api to get city destination id from user input and sends it to other hotels api
-var getCityId = function (input) {
+var getCityId = function (input, passengers, departDate, returnDate) {
     fetch("https://hotels4.p.rapidapi.com/locations/search?query=" + input + "&locale=en_US", options)
         .then(function (response) {
             if (response.status === 200) {
@@ -274,7 +274,7 @@ var getCityId = function (input) {
                     .then(function (data) {
                         if (data.moresuggestions !== 0) {
                             var destId = data.suggestions[0].entities[0].destinationId;
-                            getHotels(destId);
+                            getHotels(destId, passengers, departDate, returnDate);
                         } else {
                             alert('Enter a valid city name');
                             inputButton.classList.remove("is-loading");
@@ -290,9 +290,10 @@ var getCityId = function (input) {
 }
 
 // // use destination id to grab hotel data
-var getHotels = function (destId) {
+var getHotels = function (destId, passengers, departDate, returnDate) {
+    console.log(passengers, departDate, returnDate)
     // update fetch url to include check in and checkout dates as user input variables when available --> note for taimur
-    fetch('https://hotels4.p.rapidapi.com/properties/list?destinationId=' + destId + '&pageNumber=1&pageSize=25&checkIn=2020-01-08&checkOut=2020-01-15&adults1=1&sortOrder=BEST_SELLER&locale=en_US&currency=CAD', options)
+    fetch('https://hotels4.p.rapidapi.com/properties/list?destinationId=' + destId + '&pageNumber=1&pageSize=25&checkIn=' + departDate + '&checkOut=' + returnDate + '&adults1=' + passengers + '&sortOrder=BEST_SELLER&locale=en_US&currency=CAD', options)
         .then(function (response) {
             if (response.ok) {
                 response.json()

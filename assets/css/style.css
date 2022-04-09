@@ -115,10 +115,10 @@ nav ul li a {
 .modal-content {
   background-color: white;
   margin: auto;
-  padding: 20px;
+  padding: 40px;
   border: 1px solid #888;
   width: 50%;
-  font-size: 24px;
+  font-size: 22px;
 }
 
 .modal-content p {

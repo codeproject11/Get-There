@@ -72,7 +72,7 @@ SO THAT I can peacefully choose the PLACE I WOULD LIKE TO VISIT NEXT
 
 Taimur Hasan
 - [Email](mailto:taimurhasan11@gmail.com)
-- [GitHub](#)
+- [GitHub](https://github.com/TaimurHasan)
 
 Charanvir Singh
 - [Email](mailto:charanvir123@gmail.com)

@@ -6,10 +6,10 @@
 
 header {
   align-items: center;
-  padding: 20px 90px;
-  /* display: flex; */
+  padding: 20px 20px;
+  display: flex;
   justify-content: space-between;
-  /* flex-wrap: wrap; */
+  flex-wrap: wrap;
   position: -webkit-sticky;
   position: sticky;
   top: 0;
@@ -105,16 +105,28 @@ nav ul li a {
   font-size: 70px;
 }
 
+.flights {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .flight-child {
   border-radius: 15px;
   color: whitesmoke;
   margin: 15px 0;
-}
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  }
 
 .flights button {
   align-self: center;
   border-radius: 50px;
   text-align: center;
+}
+
+.flight-child button {
+  margin-right: 15px;
 }
 
 .weather-icons {
@@ -126,6 +138,11 @@ nav ul li a {
   );
   border-radius: 25px;
   box-shadow: black 0 0 10px;
+}
+
+.weather-format {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 a {
@@ -198,7 +215,7 @@ a {
 .footer-format {
   background: #666;
   box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
-  text-align: left;
+  text-align: center;
   font: bold 16px sans-serif;
   padding: 10px 10px;
 }
@@ -260,7 +277,7 @@ a {
   margin: 0;
 }
 
-.footer-format .footer-center p span {}
+.footer-format .footer-center p span {
   font-weight: normal;
   font-size: 14px;
   line-height: 2;
@@ -325,19 +342,11 @@ a {
 
 /* RESPONSIVE */
 
-@media screen and (max-width: 1076px) {
+@media screen and (max-width: 900px) {
   header {
-    /* display: flex; */
     justify-content: space-around;
-    /* flex-wrap: wrap; */
-  }
-}
-
-@media screen and (max-width: 575px) {
-  header {
-    /* display: flex;
-    flex-wrap: wrap; */
-    height: 200px;
+    height: 150px;
+    align-items: center;
   }
 
   .logo {
@@ -346,13 +355,41 @@ a {
   }
 
   header h1 {
+    font-size: 50px;
+  }
+
+  .nav-button {
+    height: 40px;
+    width: 90px;
+    font-size: 12px;
+    padding: 0 50px;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  header {
+    height: 140px;
+  }
+
+  .logo {
+    height: 50px;
+    width: 50px;
+  }
+
+  header h1 {
     font-size: 30px;
   }
 
   .nav-button {
     height: 40px;
-    width: 60px;
+    width: 90px;
     font-size: 12px;
     padding: 0 50px;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .flight-child button {
+    margin-right: 15px;
   }
 }

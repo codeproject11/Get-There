@@ -99,6 +99,46 @@ nav ul li a {
   box-shadow: black 0 0 10px;
 }
 
+.alert-modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 400px;
+  left: 0;
+  top: 0;
+  overflow: auto;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: white;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+  font-size: 24px;
+}
+
+.modal-content p {
+  padding: 5px 0 0 10px;
+}
+
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 .hotel-img {
   align-items: center;
   background-image: url(https://images.unsplash.com/photo-1442606383395-175ee96ed967?q=80&fm=jpg&s=5c8c74be9bc91b47c79a1aaf92264be5);

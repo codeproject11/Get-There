@@ -198,17 +198,9 @@ a {
 .footer-format {
   background: #666;
   box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
-  box-sizing: border-box;
-  /* width: 100%; */
   text-align: left;
   font: bold 16px sans-serif;
-  padding: 55px 50px;
-}
-
-/* Footer left */
-
-.footer-format .footer-left {
-  /* width: 40%; */
+  padding: 10px 10px;
 }
 
 /* The company logo */
@@ -227,12 +219,10 @@ a {
 
 .footer-format .footer-links {
   color: #000000;
-  /* margin: 20px 0 12px; */
   padding: 0;
 }
 
 .footer-format .footer-links a {
-  /* display: inline-block; */
   line-height: 1.8;
   font-weight: 400;
   text-decoration: none;
@@ -248,16 +238,10 @@ a {
 
 /* Footer Center */
 
-.footer-format .footer-center {
-  /* width: 35%; */
-}
-
 .footer-format .footer-center i {
   background-color: #33383b;
   color: #080505;
   font-size: 25px;
-  /* width: 38px; */
-  /* height: 38px; */
   border-radius: 50%;
   text-align: center;
   line-height: 42px;
@@ -271,15 +255,12 @@ a {
 }
 
 .footer-format .footer-center p {
-  /* display: inline-block; */
   color: #000000;
   font-weight: 400;
-  vertical-align: middle;
   margin: 0;
 }
 
-.footer-format .footer-center p span {
-  /* display: block; */
+.footer-format .footer-center p span {}
   font-weight: normal;
   font-size: 14px;
   line-height: 2;
@@ -296,7 +277,6 @@ a {
   font-size: 20px;
   left: 0;
   color: rgb(0, 0, 0);
-  /* display: inline-block; */
   padding-right: 5px;
 }
 
@@ -306,12 +286,7 @@ a {
 
 /* Footer Right */
 
-.footer-format .footer-right {
-  /* width: 20%; */
-}
-
 .footer-format .footer-company-about {
-  /* float: right; */
   line-height: 20px;
   color: #000000;
   font-size: 13px;
@@ -322,7 +297,6 @@ a {
 
 
 .footer-format .footer-company-about span {
-  /* display: block; */
   color: #ffffff;
   font-size: 14px;
   font-weight: bold;
@@ -334,9 +308,6 @@ a {
 }
 
 .footer-format .footer-icons a {
-  /* display: inline-block; */
-  width: 35px;
-  height: 35px;
   cursor: pointer;
   background-color: #33383b;
   border-radius: 2px;
@@ -360,45 +331,6 @@ a {
     justify-content: space-around;
     /* flex-wrap: wrap; */
   }
-}
-
-@media screen and (max-width: 969px) {
-  .footer-left, .footer-center {
-    width: 500px;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  footer {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    align-self: center;
-  }
-
-  .footer-right {
-    width: 100%;
-    flex: 1;
-  }
-
-  .footer-center {
-    width: 500px;
-    flex: 1;
-  }
-
-  .footer-left {
-    width: 100%;
-    flex: 1;
-  }
-
-  .footer-format {
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-  }  
 }
 
 @media screen and (max-width: 575px) {

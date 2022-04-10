@@ -17,11 +17,15 @@
 <body>
   <section class="section">
     <header class="header columns">
-      <img class="logo" src="./assets/images/Bootcamp logo.png"
+      <div class="header-img">
+        <img class="logo" src="./assets/images/Bootcamp logo.png"
         alt="company logo paper airpline flying over global with company name, Get There, in the center" class="column">
-      <a href="index.html">
+      </div>
+      <div class="header-div">
+        <a href="index.html">
         <h1>GET THERE</h1>
-      </a>
+        </a>
+      </div>
       <nav>
         <div class="buttons">
           <button id="contact" class="button is-info nav-button">Contact Us</button>
@@ -37,33 +41,6 @@
     <section class="columns mb-3 py-4 hero-background">
       <div class="column is-half">
         <form class="form form-background">
-          <!-- <div class="field has-addons">
-            <p class="control">
-              <button class="button">
-                <span class="icon is-small">
-                  <i class="fas fa-align-left"></i>
-                </span>
-                <span>Round Trip</span>
-              </button>
-            </p>
-            <p class="control">
-              <button class="button">
-                <span class="icon is-small">
-                  <i class="fas fa-align-center"></i>
-                </span>
-                <span>One-Way</span>
-              </button>
-            </p>
-            <p class="control">
-              <button class="button">
-                <span class="icon is-small">
-                  <i class="fas fa-align-right"></i>
-                </span>
-                <span>Packages</span>
-              </button>
-            </p>
-          </div> -->
-
           <div class="field">
             <label class="label has-text-white">Departing Airport</label>
             <div class="control">
@@ -123,7 +100,6 @@
 
       <div class="column is-half vacayview hero-text">
         <h3 class="title is-2 has-text-centered has-text-white">We Get You There</h3>
-        <!-- <img class="hero-img" src="assets/images/s-migaj-Yui5vfKHuzs-unsplash.jpg" alt="Vacation-View"> -->
         <div>
           <p class="px-5 has-text-white has-text-weight-bold">We want to help make your travel experience light and
             easy. You can think of us as your one stop
@@ -137,7 +113,7 @@
     <!-- API for hotels?-->
     <div class="my-3 py-4">
       <h3 class="title is-3">Hotels</h3>
-      <div class="columns is-mobile is-flex-wrap-wrap" id="hotel-container">
+      <div class="columns is-flex-wrap-wrap" id="hotel-container">
         <h4 class="title has-text-centered is-size-4" id="hotel-header"></h4>
         <div class="mt-5 columns is-centered is-variable is-flex-wrap-wrap" id="hotel-area">
 
@@ -149,52 +125,8 @@
     <!-- API for restaurants-->
     <div class="my-3 py-4">
       <h3 class="title is-3 restaurantTitle">Restaurants</h3>
-      <div id="restaurant-area" class="columns is-mobile is-flex-wrap-wrap">
+      <div id="restaurant-area" class="columns is-flex-wrap-wrap">
         <div class="mt-5 restaurantSection columns is-centered is-8 is-variable is-flex-wrap-wrap">
-          <!-- <div class="column is-4-tablet is-3-desktop">
-            <div class="card">
-              <div class="card-image has-text-centered px-6">
-                <img class="hotel-img" src="" alt="Placeholder image">
-              </div>
-              <div class="card-content">
-                <p class="title is-size-5">Restaurant Name 1</p>
-              </div>
-              <footer class="card-footer">
-                <p class="card-footer-item">
-                  <a href="" class="has-text-grey">View Detials</a>
-                </p>
-              </footer>
-            </div>
-          </div>
-          <div class="column is-4-tablet is-3-desktop">
-            <div class="card">
-              <div class="card-image has-text-centered px-6">
-                <img class="hotel-img" src="" alt="Placeholder image">
-              </div>
-              <div class="card-content">
-                <p class="title is-size-5">Restaurant Name 2</p>
-              </div>
-              <footer class="card-footer">
-                <p class="card-footer-item">
-                  <a href="" class="has-text-grey">View Details</a>
-                </p>
-              </footer>
-            </div>
-          </div>
-          <div class="column is-4-tablet is-3-desktop">
-            <div class="card">
-              <div class="card-image has-text-centered px-6">
-                <img class="hotel-img" src="" alt="Placeholder image">
-              </div>
-              <div class="card-content">
-                <p class="title is-size-5">Restaurant Name 3</p>
-              </div>
-              <footer class="card-footer">
-                <p class="card-footer-item">
-                  <a href="" class="has-text-grey">View Details</a>
-                </p>
-              </footer>
-            </div> -->
         </div>
       </div>
     </div>
@@ -203,50 +135,6 @@
     <!-- API for flights-->
     <div class="flights my-3 py-4">
       <h3 class="title is-3">Flights</h3>
-      <!-- <div class="columns has-background-grey-dark flight-child">
-        <div class="column has-text-weight-bold" id="airline">Flight 1</div>
-        <div class="column" id="depart-date">5 April 2022</div>
-        <div class="column" id="class">Economy</div>
-        <div class="column" id="flight-hours">1.4 hours</div>
-        <div class="column" id="price">$100</div>
-        <button class="button is-success" id="search">Select</button>
-      </div>
-
-      <div class="columns has-background-grey-dark flight-child">
-        <div class="column has-text-weight-bold" id="airline">Flight 2</div>
-        <div class="column" id="depart-date">5 April 2022</div>
-        <div class="column" id="class">Economy</div>
-        <div class="column" id="flight-hours">1.4 hours</div>
-        <div class="column" id="price">$100</div>
-        <button class="button is-success" id="search">Select</button>
-      </div>
-
-      <div class="columns has-background-grey-dark flight-child">
-        <div class="column has-text-weight-bold" id="airline">Flight 3</div>
-        <div class="column" id="depart-date">5 April 2022</div>
-        <div class="column" id="class">Economy</div>
-        <div class="column" id="flight-hours">1.4 hours</div>
-        <div class="column" id="price">$100</div>
-        <button class="button is-success" id="search">Select</button>
-      </div>
-
-      <div class="columns has-background-grey-dark flight-child">
-        <div class="column has-text-weight-bold" id="airline">Flight 4</div>
-        <div class="column" id="depart-date">5 April 2022</div>
-        <div class="column" id="class">Economy</div>
-        <div class="column" id="flight-hours">1.4 hours</div>
-        <div class="column" id="price">$100</div>
-        <button class="button is-success" id="search">Select</button>
-      </div>
-
-      <div class="columns has-background-grey-dark flight-child">
-        <div class="column has-text-weight-bold" id="airline">Flight 5</div>
-        <div class="column" id="depart-date">5 April 2022</div>
-        <div class="column" id="class">Economy</div>
-        <div class="column" id="flight-hours">1.4 hours</div>
-        <div class="column" id="price">$100</div>
-        <button class="button is-success" id="search">Select</button>
-      </div> -->
     </div>
 
     <!-- API for weather?-->
@@ -255,7 +143,7 @@
       <div class="columns">
         <div class="column mx-auto my-4 weather-icons weatherDiv place-hidden hidden">
           <h3 class="title is-3 has-text-centered has-text-white weatherCityName">City Name</h3>
-          <div class="columns has-text-white" id="weather-display">
+          <div class="columns has-text-white weather-format" id="weather-display">
             <div class="column">
               <div id="day-of-week" class="has-text-weight-bold">Monday</div>
               <img id="weather-icon" src="" alt="placeholder" />
@@ -304,76 +192,77 @@
   </section>
 
     <!-- FOOTER -->
-    
-  <footer class="columns footer-format">
 
-		<div class="column is-one-third footer-left">
+  <div class="container">  
+    <footer class="columns is-multiline is-tablet footer-format">
 
-      <h3>Get<span>There</span></h3>
+      <div class="column is-one-third is-half-tablet footer-left">
 
-      <p class="footer-links">
-        <a href="#" class="link-1">Home</a>
+        <h3>Get<span>There</span></h3>
 
-        <a href="#">Blog</a>
+        <p class="footer-links">
+          <a href="#" class="link-1">Home</a>
 
-        <a href="#">Pricing</a>
+          <a href="#">Blog</a>
 
-        <a href="#">About</a>
+          <a href="#">Pricing</a>
 
-        <a href="#">Faq</a>
+          <a href="#">About</a>
 
-        <a href="#">Contact</a>
+          <a href="#">Faq</a>
 
-        <a href="./legal.html">Legal</a>
-      </p>
-    </div>
+          <a href="#">Contact</a>
 
-		<div class="column is-one-third footer-center">
-
-      <div>
-        <i class="fa fa-map-marker"></i>
-        <p><span>27 King's College Cir, Toronto, ON M5S 1A1</span> Ontario Canada</p>
+          <a href="./legal.html">Legal</a>
+        </p>
       </div>
 
-      <div>
-        <i class="fa fa-phone"></i>
-        <p>+1(416)-111-1111</p>
+      <div class="column is-one-third is-half-tablet footer-center">
+
+        <div>
+          <i class="fa fa-map-marker"></i>
+          <p><span>27 King's College Cir, Toronto, ON M5S 1A1</span> Ontario Canada</p>
+        </div>
+
+        <div>
+          <i class="fa fa-phone"></i>
+          <p>+1(416)-111-1111</p>
+        </div>
+
+        <div>
+          <i class="fa fa-envelope"></i>
+          <p><a href="mailto:support@company.com">support@GetThere.com</a></p>
+        </div>
+
       </div>
 
-      <div>
-        <i class="fa fa-envelope"></i>
-        <p><a href="mailto:support@company.com">support@GetThere.com</a></p>
+      <div class="column is-one-third is-full-tablet footer-right">
+
+        <p class="footer-company-about">
+          <span>About the company</span>
+          You know there’s nothing better than travelling the world while practicing your passions.
+          Whether it’s sunrise yoga on a black sand beach in Costa Rica or vineyard hopping in Napa Valley until you taste
+          that life-changing merlot,
+          whatever it is that makes you tick, there are others just like you who want to connect with like-minded people.
+          Here at GetThere we place importance on
+          making your dream bookings affordable, easier and as smooth as possible.
+        </p>
+        
+
+        <div class="footer-icons">
+
+          <a href="#"><i class="fa fa-facebook"></i></a>
+          <a href="#"><i class="fa fa-twitter"></i></a>
+          <a href="#"><i class="fa fa-linkedin"></i></a>
+          <a href="#"><i class="fa fa-github"></i></a>
+        </div>
+
+        <p class="footer-company-name">Gethere © 2022</p>
+
       </div>
 
-    </div>
-
-    <div class="column is-one-third footer-right">
-
-      <p class="footer-company-about">
-        <span>About the company</span>
-        You know there’s nothing better than travelling the world while practicing your passions.
-        Whether it’s sunrise yoga on a black sand beach in Costa Rica or vineyard hopping in Napa Valley until you taste
-        that life-changing merlot,
-        whatever it is that makes you tick, there are others just like you who want to connect with like-minded people.
-        Here at GetThere we place importance on
-        making your dream bookings affordable, easier and as smooth as possible.
-      </p>
-      
-
-      <div class="footer-icons">
-
-        <a href="#"><i class="fa fa-facebook"></i></a>
-        <a href="#"><i class="fa fa-twitter"></i></a>
-        <a href="#"><i class="fa fa-linkedin"></i></a>
-        <a href="#"><i class="fa fa-github"></i></a>
-      </div>
-
-      <p class="footer-company-name">Gethere © 2022</p>
-
-    </div>
-
-  </footer>
-
+    </footer>
+  </div>
 
   <!-- Contact Modal -->
   <div class="modal">

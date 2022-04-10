@@ -17,6 +17,18 @@ var searches = [];
 var contactModal = document.querySelector(".modal")
 var contactButton = document.querySelector("#contact")
 
+// alert modal
+var alertModal = document.querySelector("#alertModal");
+var modalText = document.querySelector("#modalContent");
+var closeModal = document.querySelector("#closeModal");
+
+var runAlertModal = function (alertText) {
+    modalText.textContent = "";
+    alertModal.style.display = "block";
+
+    modalText.textContent = alertText;
+}
+
 $(function () {
     $("#departingDate").datepicker({
         dateFormat: "yy-mm-dd",
@@ -75,11 +87,11 @@ var storeInput = function (event) {
         console.log(userInput)
         getCity(userInput.destination);
         flights(userInput.departingAirport, userInput.arrivingAirport, userInput.passengersTotal, userInput.destination, userInput.departingDate);
-        getCityId(userInput.destination);
+        getCityId(userInput.destination, userInput.passengersTotal, userInput.departingDate, userInput.returningDate);
         searches.push(userInput)
         saveFunction(searches)
     } else {
-        alert("Please enter all information to start planning your trip!")
+        runAlertModal("Please enter all information to start planning your trip!");
         inputButton.classList.remove("is-loading");
     }
 
@@ -93,7 +105,7 @@ var getCity = function (destinationCity) {
             if (res.ok) {
                 res.json().then(function (destinationData) {
                     if (destinationData.length === 0) {
-                        alert("Please enter a valid city name")
+                        runAlertModal("Please enter a valid city name");
                     } else {
                         weatherData(destinationData[0].lat, destinationData[0].lon, destinationData[0].name)
                         restaurants(destinationData[0].lon, destinationData[0].lat, destinationData[0].name)
@@ -102,7 +114,7 @@ var getCity = function (destinationCity) {
             };
         })
         .catch(function (error) {
-            alert("Please Try Again");
+            runAlertModal("Please Try Again");
             console.log(error);
             return
         });
@@ -122,7 +134,7 @@ var weatherData = function (lat, lon, name) {
             };
         })
         .catch(function (error) {
-            alert("Please Try Again");
+            runAlertModal("Please Try Again");
             console.log(error);
             return
         });
@@ -173,7 +185,7 @@ var restaurants = function (lon, lat, name) {
             }
         })
         .catch(function (error) {
-            alert("Please Try Again");
+            runAlertModal("Please Try Again");
             console.log(error);
             return
         });
@@ -266,7 +278,7 @@ var insertLink = function (data, footerLink) {
 }
 
 // // uses api to get city destination id from user input and sends it to other hotels api
-var getCityId = function (input) {
+var getCityId = function (input, passengers, departDate, returnDate) {
     fetch("https://hotels4.p.rapidapi.com/locations/search?query=" + input + "&locale=en_US", options)
         .then(function (response) {
             if (response.status === 200) {
@@ -274,15 +286,15 @@ var getCityId = function (input) {
                     .then(function (data) {
                         if (data.moresuggestions !== 0) {
                             var destId = data.suggestions[0].entities[0].destinationId;
-                            getHotels(destId);
+                            getHotels(destId, passengers, departDate, returnDate);
                         } else {
-                            alert('Enter a valid city name');
+                            runAlertModal('Enter a valid city name');
                             inputButton.classList.remove("is-loading");
                         }
                     })
             } else {
                 // change to modal
-                alert("Enter a valid city name");
+                runAlertModal("Enter a valid city name");
                 inputButton.classList.remove("is-loading");
             }
         })
@@ -290,9 +302,10 @@ var getCityId = function (input) {
 }
 
 // // use destination id to grab hotel data
-var getHotels = function (destId) {
+var getHotels = function (destId, passengers, departDate, returnDate) {
+    console.log(passengers, departDate, returnDate)
     // update fetch url to include check in and checkout dates as user input variables when available --> note for taimur
-    fetch('https://hotels4.p.rapidapi.com/properties/list?destinationId=' + destId + '&pageNumber=1&pageSize=25&checkIn=2020-01-08&checkOut=2020-01-15&adults1=1&sortOrder=BEST_SELLER&locale=en_US&currency=CAD', options)
+    fetch('https://hotels4.p.rapidapi.com/properties/list?destinationId=' + destId + '&pageNumber=1&pageSize=25&checkIn=' + departDate + '&checkOut=' + returnDate + '&adults1=' + passengers + '&sortOrder=BEST_SELLER&locale=en_US&currency=CAD', options)
         .then(function (response) {
             if (response.ok) {
                 response.json()
@@ -301,7 +314,7 @@ var getHotels = function (destId) {
                     })
             } else {
                 // change to modal
-                alert("Enter a valid city name");
+                runAlertModal("Enter a valid city name");
                 inputButton.classList.remove("is-loading");
             }
         })
@@ -621,4 +634,9 @@ contactButton.addEventListener("click", modalActive);
 let modalBackground = document.querySelector(".modal-background")
 modalBackground.addEventListener("click", function () {
     contactModal.classList.remove("is-active")
+})
+
+// event listener to close alert modal using close button
+closeModal.addEventListener("click", function() {
+    alertModal.style.display = "none";
 })
